@@ -1,0 +1,105 @@
+---
+title: Getting Started
+description: Get started with Asth UI - animated component library for Next.js
+---
+
+# Getting Started
+
+Welcome to **Asth UI** - a modern component library that combines the developer experience of shadcn/ui with beautiful Framer Motion animations.
+
+## What is Asth UI?
+
+Asth UI is a collection of production-ready, animated UI components that you can install directly into your project using the shadcn CLI. Unlike other component libraries, Asth UI:
+
+- ✅ **CLI-based installation** - Just like shadcn/ui
+- ✅ **Fully animated** - Powered by Framer Motion
+- ✅ **100% Free** - Open source forever
+- ✅ **You own the code** - Components live in your project
+- ✅ **Customizable** - Full control over styling
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+- Node.js 18+ installed
+- A Next.js 14+ project with App Router
+- Tailwind CSS configured
+- shadcn/ui initialized
+
+## Installation
+
+### Step 1: Initialize shadcn/ui
+
+If you haven't already set up shadcn/ui in your project:
+
+```bash
+npx shadcn@latest init
+```
+
+### Step 2: Install Framer Motion
+
+Asth UI components use Framer Motion for animations:
+
+```bash
+npm install framer-motion
+```
+
+### Step 3: Add Asth UI Registry
+
+Update your `components.json` file to include the Asth UI registry:
+
+```json
+{
+  "registries": {
+    "asth-ui": {
+      "url": "http://localhost:3000/api/registry"
+    }
+  }
+}
+```
+
+> **Note**: In production, replace `http://localhost:3000` with your deployed URL.
+
+### Step 4: Install Your First Component
+
+```bash
+npx shadcn@latest add -r asth-ui animated-button
+```
+
+That's it! The component will be installed in your `src/registry/blocks` directory.
+
+## Usage Example
+
+After installation, you can import and use the component:
+
+```tsx
+import AnimatedButton from '@/registry/blocks/animated-button'
+
+export default function Page() {
+  return (
+    <div>
+      <AnimatedButton>Click me!</AnimatedButton>
+    </div>
+  )
+}
+```
+
+## How It Works
+
+1. **You run the CLI command** with the `-r asth-ui` flag
+2. **The CLI fetches** component metadata from our registry API
+3. **Dependencies are installed** automatically (Framer Motion, shadcn components)
+4. **Component is copied** to your project
+5. **You're ready to use it** immediately
+
+## Next Steps
+
+- Browse [Components](/components) to see what's available
+- Learn about [customization](/docs/customization)
+- Check out [examples](/docs/examples)
+
+## Need Help?
+
+- Check the [documentation](/docs)
+- Report issues on [GitHub](https://github.com/your-repo)
+- Join our community on [Discord](#)

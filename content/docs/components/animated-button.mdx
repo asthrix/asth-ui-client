@@ -1,0 +1,54 @@
+---
+title: Animated Button
+description: A button component with smooth hover and tap animations powered by Framer Motion
+---
+
+import { DynamicPreview } from '@/components/preview/dynamic-preview'
+
+# Animated Button
+
+A beautifully animated button that responds to user interactions with smooth scale animations.
+
+<DynamicPreview componentName="animated-button" />
+
+## Installation
+
+Install the component via the Asth UI registry:
+
+```bash
+npx shadcn@latest add -r asth-ui animated-button
+```
+
+## Usage
+
+```tsx
+import { AnimatedButton } from '@/components/blocks/animated-button'
+
+export default function Example() {
+  return (
+    <div className="flex gap-4">
+      <AnimatedButton>Default</AnimatedButton>
+      <AnimatedButton variant="outline">Outline</AnimatedButton>
+      <AnimatedButton variant="destructive">Destructive</AnimatedButton>
+    </div>
+  )
+}
+```
+
+## Features
+
+- 🎨 Smooth scale animation on hover
+- 👆 Spring-based tap animation
+- ♿ Accessible (inherits from shadcn Button)
+- 🎯 All button variants supported
+- 📱 Mobile-friendly
+
+## Props
+
+This component accepts all props from the shadcn `Button` component.
+
+## Animation Details
+
+- **Hover**: Scale increases to 1.05x
+- **Tap**: Scale decreases to 0.95x
+- **Transition**: Spring-based with stiffness: 400, damping: 17

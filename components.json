@@ -18,5 +18,9 @@
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
-  "registries": {}
+  "registries": {
+    "asth-ui": {
+      "url": "http://localhost:3000/api/registry"
+    }
+  }
 }

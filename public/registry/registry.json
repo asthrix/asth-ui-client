@@ -1,0 +1,32 @@
+[
+  {
+    "name": "animated-button",
+    "type": "components:block",
+    "description": "Animated animated button component",
+    "files": [
+      "animated-button.tsx"
+    ],
+    "dependencies": [
+      "react",
+      "framer-motion"
+    ],
+    "registryDependencies": [
+      "button"
+    ]
+  },
+  {
+    "name": "animated-card",
+    "type": "components:block",
+    "description": "Animated animated card component",
+    "files": [
+      "animated-card.tsx"
+    ],
+    "dependencies": [
+      "react",
+      "framer-motion"
+    ],
+    "registryDependencies": [
+      "card"
+    ]
+  }
+]
