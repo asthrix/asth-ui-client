@@ -49,8 +49,8 @@ To achieve a "modern, techie, look," the site structure will be clean, with a he
       * **Animated Hero:** A full-screen, animated hero section (e.g., using a 3D spline, animated grid, or a Framer Motion-powered component) with a clear value proposition: "Stunning UI blocks you can install in seconds."
       * **Bento Grid:** A "Bento Grid" layout (like Tailark's) showcasing 6-8 of your most impressive, animated components. This is for visual grazing and to show, not tell.
       * **How it Works (CLI):** A simple, 3-step visual guide showing the `shadcn-ui` CLI command:
-        1.  `npx shadcn-ui@latest init` (Initial setup)
-        2.  `npx shadcn-ui@latest add -r [your-registry-name] [component-name]` (Your magic\!)
+        1.  `npx shadcn@latest init` (Initial setup)
+        2.  `npx shadcn@latest add -r [your-registry-name] [component-name]` (Your magic\!)
         3.  `import { Component } from '@/components/blocks'`
       * **Footer:** A professional footer with links to Docs, Components, and your social/GitHub links.
 
@@ -72,7 +72,7 @@ To achieve a "modern, techie, look," the site structure will be clean, with a he
       * **The `ComponentPreview` Block (Your "Dynamic Code" feature):** This is the *most important* feature. It must have:
           * **"Preview" Tab:** An interactive, resizable preview of the component.
           * **"Code" Tab:** The syntax-highlighted source code.
-      * **Installation Section:** The *exact* CLI command to install this specific component: `npx shadcn-ui@latest add -r [your-name] [component-slug]`.
+      * **Installation Section:** The *exact* CLI command to install this specific component: `npx shadcn@latest add -r [your-name] [component-slug]`.
       * **Dependencies:** A list of other `shadcn/ui` components this block needs (e.g., "Depends on: `Button`, `Card`"). This should be auto-generated.
 
 **D. `/docs` (Documentation Section)**
@@ -89,7 +89,7 @@ This section details the technical implementation of your key features.
 
 **Epic 1: The `shadcn` Component Registry**
 
-  * **User Story:** As a developer, I want to type `npx shadcn-ui@latest add...` to install *your* components, not just the default ones.
+  * **User Story:** As a developer, I want to type `npx shadcn@latest add...` to install *your* components, not just the default ones.
   * **Architecture:**
     1.  **`registry` Folder:** You will maintain a `src/registry/` folder containing the *source code* for all your components (e.g., `src/registry/animated-button.tsx`).
     2.  **`registry.json`:** You will write a script (`build-registry.mjs`) that:

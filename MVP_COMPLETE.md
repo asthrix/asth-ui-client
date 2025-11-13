@@ -120,7 +120,7 @@ import { DynamicPreview } from '@/components/preview/dynamic-preview'
 ## Installation
 
 \`\`\`bash
-npx shadcn-ui@latest add -r asth-ui animated-card
+npx shadcn@latest add -r asth-ui animated-card
 \`\`\`
 ```
 
@@ -217,7 +217,7 @@ curl http://localhost:3001/api/registry/animated-button
 ### Test 4: CLI Installation (Future)
 Once deployed, users will run:
 ```bash
-npx shadcn-ui@latest add -r asth-ui animated-button
+npx shadcn@latest add -r asth-ui animated-button
 ```
 
 ---
@@ -374,7 +374,7 @@ curl http://localhost:3001/api/registry
 curl http://localhost:3001/api/registry/animated-button
 
 # Add to another project (future)
-npx shadcn-ui@latest add -r asth-ui animated-button
+npx shadcn@latest add -r asth-ui animated-button
 ```
 
 ---

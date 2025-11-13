@@ -1,0 +1,273 @@
+---
+title: Header 01
+description: A fully responsive sticky header with navigation menu, dropdown, and action buttons
+category: Headers
+subcategory: Navigation
+---
+
+import { DynamicPreview } from '@/components/preview/dynamic-preview'
+
+## Overview
+
+Header 01 is a modern, production-ready navigation header featuring a logo, navigation menu with dropdown support, login button, and a primary CTA. The component is fully responsive with a mobile drawer menu for smaller screens.
+
+### Features
+
+- ✅ **Fully Responsive** - Adapts seamlessly from mobile to desktop
+- ✅ **Mobile Drawer Menu** - Sheet component for mobile navigation
+- ✅ **Dropdown Support** - Nested menu items with hover/click
+- ✅ **Smooth Animations** - Framer Motion slide-in animation
+- ✅ **Backdrop Blur** - Modern glass-morphism effect
+- ✅ **Sticky Position** - Stays visible while scrolling
+- ✅ **Accessible** - Keyboard navigation and screen reader support
+
+## Preview
+
+<DynamicPreview componentName="header-01" category="headers" />
+
+## Installation
+
+```bash
+npx shadcn@latest add button navigation-menu sheet
+```
+
+Then install the component:
+
+```bash
+npx shadcn@latest add -r asth-ui header-01
+```
+
+## Dependencies
+
+This component uses the following shadcn/ui components:
+
+- `button` - Action buttons (Login, CTA)
+- `navigation-menu` - Desktop navigation with dropdown
+- `sheet` - Mobile drawer menu
+
+External dependencies:
+
+- `framer-motion` - Slide-in animation
+- `lucide-react` - Icons (Menu, ArrowRight, ChevronDown)
+
+## Usage
+
+### Basic Usage
+
+```tsx
+import Header01 from '@/registry/blocks/headers/header-01'
+
+export default function App() {
+  return <Header01 />
+}
+```
+
+### With Custom Logo
+
+```tsx
+import Header01 from '@/registry/blocks/headers/header-01'
+import { YourLogo } from '@/components/logo'
+
+export default function App() {
+  return (
+    <Header01
+      logo={<YourLogo />}
+    />
+  )
+}
+```
+
+### With Custom Menu Items
+
+```tsx
+import Header01 from '@/registry/blocks/headers/header-01'
+
+export default function App() {
+  const menuItems = [
+    { label: 'Home', href: '/' },
+    { label: 'About', href: '/about' },
+    {
+      label: 'Services',
+      href: '/services',
+      children: [
+        { label: 'Web Development', href: '/services/web' },
+        { label: 'Mobile Apps', href: '/services/mobile' },
+        { label: 'Consulting', href: '/services/consulting' },
+      ],
+    },
+    { label: 'Blog', href: '/blog' },
+    { label: 'Contact', href: '/contact' },
+  ]
+
+  return (
+    <Header01
+      menuItems={menuItems}
+      loginText="Sign In"
+      ctaText="Start Free Trial"
+      onLogin={() => console.log('Login clicked')}
+      onCta={() => console.log('CTA clicked')}
+    />
+  )
+}
+```
+
+### With Event Handlers
+
+```tsx
+'use client'
+
+import { useRouter } from 'next/navigation'
+import Header01 from '@/registry/blocks/headers/header-01'
+
+export default function App() {
+  const router = useRouter()
+
+  return (
+    <Header01
+      onLogin={() => router.push('/login')}
+      onCta={() => router.push('/contact')}
+    />
+  )
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `logo` | `ReactNode` | `<DefaultLogo />` | Custom logo component or element |
+| `menuItems` | `MenuItem[]` | See default menu | Array of navigation menu items |
+| `loginText` | `string` | `"Login"` | Text for the login button |
+| `ctaText` | `string` | `"Get in touch"` | Text for the primary CTA button |
+| `onLogin` | `() => void` | `undefined` | Callback when login button is clicked |
+| `onCta` | `() => void` | `undefined` | Callback when CTA button is clicked |
+
+### MenuItem Type
+
+```typescript
+interface MenuItem {
+  label: string
+  href: string
+  children?: MenuItem[] // For dropdown menus
+}
+```
+
+## Responsive Behavior
+
+This component uses a **single responsive design** that adapts across all breakpoints:
+
+### Mobile (< 768px)
+- Hamburger menu icon (Sheet trigger)
+- Logo displayed at normal size
+- Mobile drawer slides in from right
+- Stacked menu items with expandable dropdowns
+- Full-width action buttons at bottom
+
+### Tablet (768px - 1024px)
+- Full navigation menu visible
+- Compact spacing between items
+- Action buttons displayed inline
+- Container padding: 32px (8rem)
+
+### Desktop (> 1024px)
+- Full navigation menu with hover states
+- Optimal spacing (24px between nav items, 32px before actions)
+- Action buttons with proper sizing
+- Container padding: 167px (max content width)
+
+## Styling
+
+All styling uses shadcn/ui CSS variables and can be customized through your theme:
+
+```typescript
+// Customize in your tailwind.config.ts or globals.css
+{
+  colors: {
+    muted: { 
+      DEFAULT: "hsl(var(--muted))",
+      foreground: "hsl(var(--muted-foreground))"
+    },
+    background: "hsl(var(--background))",
+    foreground: "hsl(var(--foreground))",
+    accent: {
+      DEFAULT: "hsl(var(--accent))",
+      foreground: "hsl(var(--accent-foreground))"
+    },
+    border: "hsl(var(--border))",
+  }
+}
+```
+
+### Color Usage
+
+- **Background**: `bg-muted/50` with backdrop blur
+- **Text**: `text-muted-foreground` for nav items, `text-foreground` on hover
+- **Login Button**: `bg-background` with `border-border`
+- **CTA Button**: `bg-muted-foreground` with `text-background`
+- **Borders**: `border-b` using `border` color
+
+## Animations
+
+The header includes a smooth slide-in animation on mount using Framer Motion:
+
+```typescript
+initial={{ y: -100 }}
+animate={{ y: 0 }}
+transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+```
+
+This creates a professional entrance effect when the page loads.
+
+## Accessibility
+
+- **Keyboard Navigation**: Full support for Tab, Enter, Escape keys
+- **ARIA Labels**: Proper labels for mobile menu toggle
+- **Screen Readers**: Descriptive text for all interactive elements
+- **Focus Management**: Visible focus states with ring indicators
+- **Semantic HTML**: Uses `<header>` and `<nav>` elements
+
+## Best Practices
+
+1. **Logo Sizing**: Keep logos under 40px height for optimal appearance
+2. **Menu Items**: Limit to 4-6 top-level items for best UX
+3. **CTA Text**: Keep button text under 20 characters
+4. **Sticky Header**: Works best with light content below
+5. **Event Handlers**: Always provide `onLogin` and `onCta` handlers in production
+
+## Examples
+
+### With Custom Colors
+
+```tsx
+<Header01
+  className="bg-white/80 border-gray-200"
+  // Or override in your CSS
+/>
+```
+
+### Fixed Height Layout
+
+```tsx
+<div className="flex min-h-screen flex-col">
+  <Header01 />
+  <main className="flex-1">
+    {/* Your content */}
+  </main>
+</div>
+```
+
+## Related Components
+
+- [Header 02](/docs/components/headers/header-02) - With search input
+- [Notification Bar 01](/docs/components/notification-bars/notification-bar-01) - Top banner
+- [Footer 01](/docs/components/footers/footer-01) - Matching footer design
+
+## Component Code
+
+The full source code is available in the registry:
+
+```
+src/registry/blocks/headers/header-01.tsx
+```
+
+You can also view and copy the code directly from the preview above.

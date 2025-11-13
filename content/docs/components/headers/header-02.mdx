@@ -1,0 +1,381 @@
+---
+title: Header 02
+description: A fully responsive sticky header with navigation menu, dropdown, and integrated search
+category: Headers
+subcategory: Navigation
+---
+
+import { DynamicPreview } from '@/components/preview/dynamic-preview'
+
+## Overview
+
+Header 02 is a modern navigation header featuring a logo, navigation menu with dropdown support, and an integrated search input. Perfect for content-heavy sites, documentation, or e-commerce platforms. The component is fully responsive with a mobile drawer menu.
+
+### Features
+
+- ✅ **Fully Responsive** - Adapts seamlessly from mobile to desktop
+- ✅ **Mobile Drawer Menu** - Sheet component for mobile navigation
+- ✅ **Integrated Search** - Search input with icon styling
+- ✅ **Dropdown Support** - Nested menu items with hover/click
+- ✅ **Smooth Animations** - Framer Motion slide-in animation
+- ✅ **Backdrop Blur** - Modern glass-morphism effect
+- ✅ **Sticky Position** - Stays visible while scrolling
+- ✅ **Accessible** - Keyboard navigation and screen reader support
+
+## Preview
+
+<DynamicPreview componentName="header-02" category="headers" />
+
+## Installation
+
+```bash
+npx shadcn@latest add button input navigation-menu sheet
+```
+
+Then install the component:
+
+```bash
+npx shadcn@latest add -r asth-ui header-02
+```
+
+## Dependencies
+
+This component uses the following shadcn/ui components:
+
+- `button` - Mobile menu toggle
+- `input` - Search input field
+- `navigation-menu` - Desktop navigation with dropdown
+- `sheet` - Mobile drawer menu
+
+External dependencies:
+
+- `framer-motion` - Slide-in animation
+- `lucide-react` - Icons (Menu, Search, ChevronDown)
+
+## Usage
+
+### Basic Usage
+
+```tsx
+import Header02 from '@/registry/blocks/headers/header-02'
+
+export default function App() {
+  return <Header02 />
+}
+```
+
+### With Search Handler
+
+```tsx
+'use client'
+
+import Header02 from '@/registry/blocks/headers/header-02'
+import { useState } from 'react'
+
+export default function App() {
+  const [searchResults, setSearchResults] = useState([])
+
+  const handleSearch = async (query: string) => {
+    console.log('Searching for:', query)
+    // Implement your search logic
+    const results = await fetch(`/api/search?q=${query}`)
+    const data = await results.json()
+    setSearchResults(data)
+  }
+
+  return (
+    <Header02
+      searchPlaceholder="Search products..."
+      onSearch={handleSearch}
+    />
+  )
+}
+```
+
+### With Custom Logo and Menu
+
+```tsx
+import Header02 from '@/registry/blocks/headers/header-02'
+import { YourLogo } from '@/components/logo'
+
+export default function App() {
+  const menuItems = [
+    { label: 'Home', href: '/' },
+    { label: 'Products', href: '/products' },
+    {
+      label: 'Categories',
+      href: '/categories',
+      children: [
+        { label: 'Electronics', href: '/categories/electronics' },
+        { label: 'Clothing', href: '/categories/clothing' },
+        { label: 'Books', href: '/categories/books' },
+      ],
+    },
+    { label: 'Support', href: '/support' },
+  ]
+
+  return (
+    <Header02
+      logo={<YourLogo />}
+      menuItems={menuItems}
+      searchPlaceholder="Search our catalog..."
+      onSearch={(query) => {
+        // Handle search
+        window.location.href = `/search?q=${query}`
+      }}
+    />
+  )
+}
+```
+
+### With Debounced Search
+
+```tsx
+'use client'
+
+import Header02 from '@/registry/blocks/headers/header-02'
+import { useCallback } from 'react'
+import { debounce } from 'lodash'
+
+export default function App() {
+  const debouncedSearch = useCallback(
+    debounce(async (query: string) => {
+      if (query.length < 3) return
+      
+      const results = await fetch(`/api/search?q=${query}`)
+      const data = await results.json()
+      console.log('Search results:', data)
+    }, 300),
+    []
+  )
+
+  return (
+    <Header02
+      onSearch={debouncedSearch}
+      searchPlaceholder="Type to search..."
+    />
+  )
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `logo` | `ReactNode` | `<DefaultLogo />` | Custom logo component or element |
+| `menuItems` | `MenuItem[]` | See default menu | Array of navigation menu items |
+| `searchPlaceholder` | `string` | `"Search for..."` | Placeholder text for search input |
+| `onSearch` | `(query: string) => void` | `undefined` | Callback when search is submitted |
+
+### MenuItem Type
+
+```typescript
+interface MenuItem {
+  label: string
+  href: string
+  children?: MenuItem[] // For dropdown menus
+}
+```
+
+## Responsive Behavior
+
+This component uses a **single responsive design** that adapts across all breakpoints:
+
+### Mobile (< 768px)
+- Hamburger menu icon (Sheet trigger)
+- Search input inside mobile drawer
+- Logo displayed at normal size
+- Mobile drawer slides in from right
+- Stacked menu items with expandable dropdowns
+
+### Tablet (768px - 1024px)
+- Full navigation menu visible
+- Search input displayed (width: 286px)
+- Compact spacing between items
+- Container padding: 32px (8rem)
+
+### Desktop (> 1024px)
+- Full navigation menu with hover states
+- Search input with optimal width (286px)
+- Optimal spacing (24px between nav items, 32px before search)
+- Container padding: 167px (max content width)
+
+## Styling
+
+All styling uses shadcn/ui CSS variables and can be customized through your theme:
+
+```typescript
+// Customize in your tailwind.config.ts or globals.css
+{
+  colors: {
+    muted: { 
+      DEFAULT: "hsl(var(--muted))",
+      foreground: "hsl(var(--muted-foreground))"
+    },
+    background: "hsl(var(--background))",
+    foreground: "hsl(var(--foreground))",
+    accent: {
+      DEFAULT: "hsl(var(--accent))",
+      foreground: "hsl(var(--accent-foreground))"
+    },
+    border: "hsl(var(--border))",
+  }
+}
+```
+
+### Color Usage
+
+- **Background**: `bg-muted/50` with backdrop blur
+- **Text**: `text-muted-foreground` for nav items, `text-foreground` on hover
+- **Search Input**: `bg-background` with `border-muted`
+- **Search Icon**: `text-muted-foreground` positioned absolutely
+- **Borders**: `border-b` using `border` color
+
+## Search Functionality
+
+The search input is fully functional and supports:
+
+1. **Form Submission**: Press Enter to submit search
+2. **Controlled Input**: State managed internally
+3. **Custom Handler**: `onSearch` callback receives query string
+4. **Search Icon**: Left-aligned icon for visual clarity
+5. **Responsive**: Full width on mobile, fixed width on desktop
+
+### Search Implementation Example
+
+```tsx
+const handleSearch = async (query: string) => {
+  if (!query.trim()) return
+  
+  try {
+    const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`)
+    const results = await response.json()
+    
+    // Navigate to search results page
+    router.push(`/search?q=${encodeURIComponent(query)}`)
+    
+    // Or show results in a dropdown
+    setSearchResults(results)
+  } catch (error) {
+    console.error('Search failed:', error)
+  }
+}
+```
+
+## Animations
+
+The header includes a smooth slide-in animation on mount using Framer Motion:
+
+```typescript
+initial={{ y: -100 }}
+animate={{ y: 0 }}
+transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+```
+
+This creates a professional entrance effect when the page loads.
+
+## Accessibility
+
+- **Keyboard Navigation**: Full support for Tab, Enter, Escape keys
+- **ARIA Labels**: Proper labels for mobile menu toggle and search
+- **Screen Readers**: Descriptive text for all interactive elements
+- **Focus Management**: Visible focus states with ring indicators
+- **Semantic HTML**: Uses `<header>`, `<nav>`, and `<form>` elements
+- **Search Type**: Input type="search" for native browser features
+
+## Best Practices
+
+1. **Search Debouncing**: Implement debouncing for real-time search
+2. **Loading States**: Show loading indicator during search
+3. **Empty States**: Handle empty search results gracefully
+4. **Search History**: Consider implementing recent searches
+5. **Keyboard Shortcuts**: Add Cmd+K or Ctrl+K for focus search
+6. **Clear Button**: Add ability to clear search input
+7. **Search Results**: Display results in dropdown or separate page
+
+## Examples
+
+### With Keyboard Shortcut (Cmd+K)
+
+```tsx
+'use client'
+
+import { useEffect, useRef } from 'react'
+import Header02 from '@/registry/blocks/headers/header-02'
+
+export default function App() {
+  const searchRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault()
+        searchRef.current?.focus()
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
+  return <Header02 />
+}
+```
+
+### With Search Results Dropdown
+
+```tsx
+'use client'
+
+import { useState } from 'react'
+import Header02 from '@/registry/blocks/headers/header-02'
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+
+export default function App() {
+  const [open, setOpen] = useState(false)
+  const [results, setResults] = useState([])
+
+  const handleSearch = async (query: string) => {
+    if (query.length < 2) {
+      setResults([])
+      setOpen(false)
+      return
+    }
+
+    const res = await fetch(`/api/search?q=${query}`)
+    const data = await res.json()
+    setResults(data)
+    setOpen(true)
+  }
+
+  return (
+    <div>
+      <Header02 onSearch={handleSearch} />
+      {/* Add results dropdown logic */}
+    </div>
+  )
+}
+```
+
+## Related Components
+
+- [Header 01](/docs/components/headers/header-01) - With action buttons
+- [Search Bar 01](/docs/components/search/search-bar-01) - Standalone search
+- [Command Menu 01](/docs/components/command/command-menu-01) - Advanced search
+
+## Component Code
+
+The full source code is available in the registry:
+
+```
+src/registry/blocks/headers/header-02.tsx
+```
+
+You can also view and copy the code directly from the preview above.

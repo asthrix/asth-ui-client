@@ -5,7 +5,7 @@
 A **component library website** with a **custom shadcn-compatible registry** that allows developers to install your components via CLI:
 
 ```bash
-npx shadcn-ui@latest add -r asth-ui animated-button
+npx shadcn@latest add -r asth-ui animated-button
 ```
 
 ---
@@ -284,7 +284,7 @@ curl http://localhost:3000/api/registry/animated-button
 ```bash
 # In a separate Next.js project
 cd /path/to/test-project
-npx shadcn-ui@latest add -r http://localhost:3000/api/registry animated-button
+npx shadcn@latest add -r http://localhost:3000/api/registry animated-button
 ```
 
 **Expected:** Component should be installed in `components/blocks/animated-button.tsx`
@@ -369,7 +369,7 @@ import { DynamicPreview } from '@/components/preview/dynamic-preview'
 ## Installation
 
 \`\`\`bash
-npx shadcn-ui@latest add -r asth-ui animated-button
+npx shadcn@latest add -r asth-ui animated-button
 \`\`\`
 
 ## Usage
@@ -439,7 +439,7 @@ vercel --prod
 curl https://asth-ui.com/api/registry | jq
 
 # Test CLI installation
-npx shadcn-ui@latest add -r https://asth-ui.com/api/registry animated-button
+npx shadcn@latest add -r https://asth-ui.com/api/registry animated-button
 ```
 
 ---

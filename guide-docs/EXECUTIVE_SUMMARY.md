@@ -29,7 +29,7 @@ Asth UI is a **free, open-source UI component library** that combines:
 **How:** Next.js API routes serving component metadata + source code  
 **User Experience:**
 ```bash
-npx shadcn-ui@latest add -r asth-ui animated-button
+npx shadcn@latest add -r asth-ui animated-button
 # ✅ Component installed in seconds
 ```
 

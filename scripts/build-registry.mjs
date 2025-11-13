@@ -56,67 +56,102 @@ async function buildRegistry() {
     // Ensure output directory exists
     await fs.mkdir(OUTPUT_PATH, { recursive: true })
 
-    // Read all component files from blocks directory
-    const files = await fs.readdir(REGISTRY_PATH)
-    const tsxFiles = files.filter((file) => file.endsWith('.tsx'))
+    const registry = []
+    let totalComponents = 0
 
-    if (tsxFiles.length === 0) {
-      console.log('⚠️  No components found in src/registry/blocks/')
-      console.log('   Create your first component to get started!\n')
+    // Read all category directories
+    const categories = await fs.readdir(REGISTRY_PATH, { withFileTypes: true })
+    const categoryDirs = categories.filter((dirent) => dirent.isDirectory())
+
+    if (categoryDirs.length === 0) {
+      console.log('⚠️  No category folders found in src/registry/blocks/')
+      console.log('   Create a category folder (e.g., headers/) to get started!\n')
       return
     }
 
-    const registry = []
+    // Process each category
+    for (const categoryDir of categoryDirs) {
+      const category = categoryDir.name
+      const categoryPath = path.join(REGISTRY_PATH, category)
+      
+      console.log(`📁 Processing category: ${category}`)
 
-    // Process each component file
-    for (const file of tsxFiles) {
-      const componentName = file.replace('.tsx', '')
-      const filePath = path.join(REGISTRY_PATH, file)
-      const content = await fs.readFile(filePath, 'utf-8')
+      // Read all component files in this category
+      const files = await fs.readdir(categoryPath)
+      const tsxFiles = files.filter((file) => file.endsWith('.tsx'))
 
-      // Extract dependencies
-      const dependencies = extractDependencies(content)
-      const registryDependencies = extractRegistryDependencies(content)
-
-      // Save component file to public/registry
-      const outputFilePath = path.join(OUTPUT_PATH, file)
-      await fs.writeFile(outputFilePath, content)
-
-      // Add to registry
-      const registryItem = {
-        name: componentName,
-        type: 'components:block',
-        description: `Animated ${componentName.replace(/-/g, ' ')} component`,
-        files: [file],
-        dependencies: dependencies.length > 0 ? dependencies : undefined,
-        registryDependencies:
-          registryDependencies.length > 0 ? registryDependencies : undefined,
+      if (tsxFiles.length === 0) {
+        console.log(`   ⚠️  No components found in ${category}/\n`)
+        continue
       }
 
-      // Remove undefined fields
-      Object.keys(registryItem).forEach((key) => {
-        if (registryItem[key] === undefined) {
-          delete registryItem[key]
+      // Process each component file
+      for (const file of tsxFiles) {
+        const componentName = file.replace('.tsx', '')
+        const filePath = path.join(categoryPath, file)
+        const content = await fs.readFile(filePath, 'utf-8')
+
+        // Extract dependencies
+        const dependencies = extractDependencies(content)
+        const registryDependencies = extractRegistryDependencies(content)
+
+        // Save component file to public/registry with category prefix
+        const outputFileName = `${category}-${file}`
+        const outputFilePath = path.join(OUTPUT_PATH, outputFileName)
+        await fs.writeFile(outputFilePath, content)
+
+        // Add to registry
+        const registryItem = {
+          name: componentName,
+          type: 'components:block',
+          category: category,
+          description: `${componentName.replace(/-/g, ' ')} component`,
+          files: [outputFileName],
+          dependencies: dependencies.length > 0 ? dependencies : undefined,
+          registryDependencies:
+            registryDependencies.length > 0 ? registryDependencies : undefined,
         }
-      })
 
-      registry.push(registryItem)
+        // Remove undefined fields
+        Object.keys(registryItem).forEach((key) => {
+          if (registryItem[key] === undefined) {
+            delete registryItem[key]
+          }
+        })
 
-      console.log(`✅ Processed: ${componentName}`)
-      if (dependencies.length > 0) {
-        console.log(`   Dependencies: ${dependencies.join(', ')}`)
+        registry.push(registryItem)
+        totalComponents++
+
+        console.log(`   ✅ ${componentName}`)
+        if (dependencies.length > 0) {
+          console.log(`      Dependencies: ${dependencies.join(', ')}`)
+        }
+        if (registryDependencies.length > 0) {
+          console.log(`      Registry deps: ${registryDependencies.join(', ')}`)
+        }
       }
-      if (registryDependencies.length > 0) {
-        console.log(`   Registry deps: ${registryDependencies.join(', ')}`)
-      }
+
+      console.log('') // Empty line between categories
     }
 
     // Write registry.json
     const registryJsonPath = path.join(OUTPUT_PATH, 'registry.json')
     await fs.writeFile(registryJsonPath, JSON.stringify(registry, null, 2))
 
-    console.log(`\n✨ Registry built successfully!`)
-    console.log(`   ${registry.length} component(s) registered`)
+    // Write categories index
+    const categoriesData = categoryDirs.map((dir) => ({
+      name: dir.name,
+      label: dir.name.charAt(0).toUpperCase() + dir.name.slice(1),
+    }))
+    const categoriesJsonPath = path.join(OUTPUT_PATH, 'categories.json')
+    await fs.writeFile(
+      categoriesJsonPath,
+      JSON.stringify(categoriesData, null, 2)
+    )
+
+    console.log(`✨ Registry built successfully!`)
+    console.log(`   ${categoryDirs.length} categor${categoryDirs.length === 1 ? 'y' : 'ies'}`)
+    console.log(`   ${totalComponents} component(s) registered`)
     console.log(`   Output: public/registry/\n`)
   } catch (error) {
     console.error('❌ Error building registry:', error)

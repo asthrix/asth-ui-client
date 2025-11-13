@@ -76,7 +76,7 @@
 │                     DEVELOPER'S PROJECT                                  │
 │                                                                          │
 │  Terminal Command:                                                       │
-│  $ npx shadcn-ui@latest add -r asth-ui animated-button                 │
+│  $ npx shadcn@latest add -r asth-ui animated-button                 │
 │                                                                          │
 │  ┌────────────────────────────────────────────────────────────────┐   │
 │  │ shadcn CLI Process:                                             │   │

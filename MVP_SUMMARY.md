@@ -287,7 +287,7 @@ Your MVP is complete! The core functionality is working. Here's your roadmap:
 
 3. **Test CLI installation:**
    - In a separate Next.js project
-   - Run: `npx shadcn-ui@latest add -r your-url animated-button`
+   - Run: `npx shadcn@latest add -r your-url animated-button`
 
 ### Phase 2 (Next 1-2 Weeks)
 Based on your IMPLEMENTATION_PLAN.md:

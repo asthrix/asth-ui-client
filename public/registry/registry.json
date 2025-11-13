@@ -1,32 +1,39 @@
 [
   {
-    "name": "animated-button",
+    "name": "header-01",
     "type": "components:block",
-    "description": "Animated animated button component",
+    "category": "headers",
+    "description": "header 01 component",
     "files": [
-      "animated-button.tsx"
+      "headers-header-01.tsx"
     ],
     "dependencies": [
       "react",
-      "framer-motion"
+      "framer-motion",
+      "lucide-react"
     ],
     "registryDependencies": [
-      "button"
+      "button",
+      "sheet"
     ]
   },
   {
-    "name": "animated-card",
+    "name": "header-02",
     "type": "components:block",
-    "description": "Animated animated card component",
+    "category": "headers",
+    "description": "header 02 component",
     "files": [
-      "animated-card.tsx"
+      "headers-header-02.tsx"
     ],
     "dependencies": [
       "react",
-      "framer-motion"
+      "framer-motion",
+      "lucide-react"
     ],
     "registryDependencies": [
-      "card"
+      "button",
+      "input",
+      "sheet"
     ]
   }
 ]

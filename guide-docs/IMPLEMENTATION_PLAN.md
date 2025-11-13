@@ -625,13 +625,13 @@ const steps = [
   {
     icon: Terminal,
     title: "Initialize shadcn/ui",
-    code: "npx shadcn-ui@latest init",
+    code: "npx shadcn@latest init",
     description: "Set up shadcn/ui in your project"
   },
   {
     icon: Package,
     title: "Install Components",
-    code: "npx shadcn-ui@latest add -r asth-ui animated-button",
+    code: "npx shadcn@latest add -r asth-ui animated-button",
     description: "Add components with a single command"
   },
   {
@@ -810,7 +810,7 @@ Before you begin, make sure you have:
 If you haven't already, set up shadcn/ui in your project:
 
 ```bash
-npx shadcn-ui@latest init
+npx shadcn@latest init
 ```
 
 ## Step 2: Add Asth UI Registry
@@ -838,7 +838,7 @@ npm install framer-motion
 ## Step 4: Install Your First Component
 
 ```bash
-npx shadcn-ui@latest add -r asth-ui animated-button
+npx shadcn@latest add -r asth-ui animated-button
 ```
 
 That's it! The component will be installed in your `components/blocks` directory.
@@ -861,7 +861,7 @@ import { DynamicPreview } from '@/components/preview/dynamic-preview'
 ## Installation
 
 ```bash
-npx shadcn-ui@latest add -r asth-ui animated-button
+npx shadcn@latest add -r asth-ui animated-button
 ```
 
 ## Usage
@@ -987,7 +987,7 @@ curl http://localhost:3000/api/registry
 ### CLI Testing
 ```bash
 # In a separate Next.js project
-npx shadcn-ui@latest add -r http://localhost:3000/api/registry animated-button
+npx shadcn@latest add -r http://localhost:3000/api/registry animated-button
 ```
 
 ---
