@@ -1,9 +1,9 @@
-'use client'
+"use client";
 
-import * as React from 'react'
-import { motion } from 'framer-motion'
-import { Menu, ArrowRight, ChevronDown, Box } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { motion } from "framer-motion";
+import { ArrowRight, Box, ChevronDown, Menu } from "lucide-react";
+import * as React from "react";
+import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -11,39 +11,38 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from '@/components/ui/navigation-menu'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { cn } from '@/lib/utils'
+} from "@/components/ui/navigation-menu";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 interface MenuItem {
-  label: string
-  href: string
-  children?: MenuItem[]
+  label: string;
+  href: string;
+  children?: MenuItem[];
 }
 
 interface Header01Props {
-  logo?: React.ReactNode
-  menuItems?: MenuItem[]
-  loginText?: string
-  ctaText?: string
-  onLogin?: () => void
-  onCta?: () => void
+  logo?: React.ReactNode;
+  menuItems?: MenuItem[];
+  loginText?: string;
+  ctaText?: string;
+  onLogin?: () => void;
+  onCta?: () => void;
 }
 
 const defaultMenuItems: MenuItem[] = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
   {
-    label: 'Features',
-    href: '/features',
+    label: "Features",
+    href: "/features",
     children: [
-      { label: 'Feature 1', href: '/features/1' },
-      { label: 'Feature 2', href: '/features/2' },
-      { label: 'Feature 3', href: '/features/3' },
+      { label: "Feature 1", href: "/features/1" },
+      { label: "Feature 2", href: "/features/2" },
+      { label: "Feature 3", href: "/features/3" },
     ],
   },
-  { label: 'Pricing', href: '/pricing' },
-]
+  { label: "Pricing", href: "/pricing" },
+];
 
 const DefaultLogo = () => (
   <div className="flex items-center gap-2">
@@ -58,17 +57,17 @@ const DefaultLogo = () => (
     <Box className="w-7 h-7 text-muted-foreground" aria-hidden="true" />
     <span className="text-lg font-semibold text-muted-foreground">brix</span>
   </div>
-)
+);
 
 export default function Header01({
   logo,
   menuItems = defaultMenuItems,
-  loginText = 'Login',
-  ctaText = 'Get in touch',
+  loginText = "Login",
+  ctaText = "Get in touch",
   onLogin,
   onCta,
 }: Header01Props) {
-  const [isOpen, setIsOpen] = React.useState(false)
+  const [isOpen, setIsOpen] = React.useState(false);
 
   return (
     <motion.header
@@ -79,9 +78,7 @@ export default function Header01({
     >
       <div className="container flex h-[88px] items-center justify-between px-4 md:px-8 lg:px-[167px]">
         {/* Logo */}
-        <div className="flex items-center">
-          {logo || <DefaultLogo />}
-        </div>
+        <div className="flex items-center">{logo || <DefaultLogo />}</div>
 
         {/* Desktop Navigation */}
         <div className="hidden items-center gap-8 md:flex">
@@ -190,8 +187,8 @@ export default function Header01({
                   variant="outline"
                   className="w-full justify-center text-sm font-semibold"
                   onClick={() => {
-                    onLogin?.()
-                    setIsOpen(false)
+                    onLogin?.();
+                    setIsOpen(false);
                   }}
                 >
                   {loginText}
@@ -199,8 +196,8 @@ export default function Header01({
                 <Button
                   className="w-full justify-center gap-1 bg-muted-foreground text-sm font-semibold text-background hover:bg-muted-foreground/90"
                   onClick={() => {
-                    onCta?.()
-                    setIsOpen(false)
+                    onCta?.();
+                    setIsOpen(false);
                   }}
                 >
                   {ctaText}
@@ -212,5 +209,5 @@ export default function Header01({
         </Sheet>
       </div>
     </motion.header>
-  )
+  );
 }

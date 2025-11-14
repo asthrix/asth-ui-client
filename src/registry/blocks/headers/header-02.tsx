@@ -1,10 +1,10 @@
-'use client'
+"use client";
 
-import * as React from 'react'
-import { motion } from 'framer-motion'
-import { Menu, Search, ChevronDown, Box } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { motion } from "framer-motion";
+import { Box, ChevronDown, Menu, Search } from "lucide-react";
+import * as React from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -12,37 +12,36 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from '@/components/ui/navigation-menu'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { cn } from '@/lib/utils'
+} from "@/components/ui/navigation-menu";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 interface MenuItem {
-  label: string
-  href: string
-  children?: MenuItem[]
+  label: string;
+  href: string;
+  children?: MenuItem[];
 }
 
 interface Header02Props {
-  logo?: React.ReactNode
-  menuItems?: MenuItem[]
-  searchPlaceholder?: string
-  onSearch?: (query: string) => void
+  logo?: React.ReactNode;
+  menuItems?: MenuItem[];
+  searchPlaceholder?: string;
+  onSearch?: (query: string) => void;
 }
 
 const defaultMenuItems: MenuItem[] = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
   {
-    label: 'Features',
-    href: '/features',
+    label: "Features",
+    href: "/features",
     children: [
-      { label: 'Feature 1', href: '/features/1' },
-      { label: 'Feature 2', href: '/features/2' },
-      { label: 'Feature 3', href: '/features/3' },
+      { label: "Feature 1", href: "/features/1" },
+      { label: "Feature 2", href: "/features/2" },
+      { label: "Feature 3", href: "/features/3" },
     ],
   },
-  { label: 'Contact', href: '/contact' },
-]
+  { label: "Contact", href: "/contact" },
+];
 
 const DefaultLogo = () => (
   <div className="flex items-center gap-2">
@@ -57,21 +56,21 @@ const DefaultLogo = () => (
     <Box className="w-7 h-7 text-muted-foreground" aria-hidden="true" />
     <span className="text-lg font-semibold text-muted-foreground">brix</span>
   </div>
-)
+);
 
 export default function Header02({
   logo,
   menuItems = defaultMenuItems,
-  searchPlaceholder = 'Search for...',
+  searchPlaceholder = "Search for...",
   onSearch,
 }: Header02Props) {
-  const [isOpen, setIsOpen] = React.useState(false)
-  const [searchQuery, setSearchQuery] = React.useState('')
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [searchQuery, setSearchQuery] = React.useState("");
 
   const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
-    onSearch?.(searchQuery)
-  }
+    e.preventDefault();
+    onSearch?.(searchQuery);
+  };
 
   return (
     <motion.header
@@ -82,9 +81,7 @@ export default function Header02({
     >
       <div className="container flex h-[92px] items-center justify-between px-4 md:px-8 lg:px-[167px]">
         {/* Logo */}
-        <div className="flex items-center">
-          {logo || <DefaultLogo />}
-        </div>
+        <div className="flex items-center">{logo || <DefaultLogo />}</div>
 
         {/* Desktop Navigation & Search */}
         <div className="hidden items-center gap-8 md:flex">
@@ -198,5 +195,5 @@ export default function Header02({
         </Sheet>
       </div>
     </motion.header>
-  )
+  );
 }

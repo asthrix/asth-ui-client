@@ -1,14 +1,18 @@
-'use client'
+"use client";
 
-import * as React from 'react'
-import { motion } from 'framer-motion'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
+import { motion } from "framer-motion";
+import type * as React from "react";
+import { Card } from "@/components/ui/card";
 
 interface AnimatedCardProps extends React.ComponentProps<typeof Card> {
-  delay?: number
+  delay?: number;
 }
 
-export default function AnimatedCard({ children, delay = 0, ...props }: AnimatedCardProps) {
+export default function AnimatedCard({
+  children,
+  delay = 0,
+  ...props
+}: AnimatedCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -18,5 +22,5 @@ export default function AnimatedCard({ children, delay = 0, ...props }: Animated
     >
       <Card {...props}>{children}</Card>
     </motion.div>
-  )
+  );
 }

@@ -1,14 +1,14 @@
-'use client'
+"use client";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { CodeBlock } from './code-block'
-import { Badge } from '@/components/ui/badge'
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { CodeBlock } from "./code-block";
 
 interface ComponentPreviewProps {
-  children: React.ReactNode
-  code: string
-  name: string
-  dependencies?: string[]
+  children: React.ReactNode;
+  code: string;
+  name?: string;
+  dependencies?: string[];
 }
 
 export function ComponentPreview({
@@ -52,5 +52,5 @@ export function ComponentPreview({
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

@@ -1,9 +1,9 @@
-import fs from 'fs'
-import path from 'path'
-import { ComponentPreview } from './component-preview'
+import fs from "node:fs";
+import path from "node:path";
+import { ComponentPreview } from "./component-preview";
 
 interface DynamicPreviewProps {
-  componentName: string
+  componentName: string;
 }
 
 export async function DynamicPreview({ componentName }: DynamicPreviewProps) {
@@ -11,9 +11,9 @@ export async function DynamicPreview({ componentName }: DynamicPreviewProps) {
     // Read component source
     const componentPath = path.join(
       process.cwd(),
-      'src/registry/blocks',
-      `${componentName}.tsx`
-    )
+      "src/registry/blocks",
+      `${componentName}.tsx`,
+    );
 
     if (!fs.existsSync(componentPath)) {
       return (
@@ -22,28 +22,32 @@ export async function DynamicPreview({ componentName }: DynamicPreviewProps) {
             Component not found: {componentName}
           </p>
         </div>
-      )
+      );
     }
 
-    const code = fs.readFileSync(componentPath, 'utf-8')
+    const code = fs.readFileSync(componentPath, "utf-8");
 
     // Read registry for dependencies
     const registryPath = path.join(
       process.cwd(),
-      'public/registry/registry.json'
-    )
+      "public/registry/registry.json",
+    );
 
-    let dependencies: string[] = []
+    let dependencies: string[] = [];
     if (fs.existsSync(registryPath)) {
-      const registry = JSON.parse(fs.readFileSync(registryPath, 'utf-8'))
-      const item = registry.find((r: any) => r.name === componentName)
-      dependencies = item?.registryDependencies || []
+      const registry = JSON.parse(
+        fs.readFileSync(registryPath, "utf-8"),
+      ) as Array<{
+        name: string;
+        registryDependencies?: string[];
+      }>;
+      const item = registry.find((r) => r.name === componentName);
+      dependencies = item?.registryDependencies || [];
     }
 
     // Dynamically import the component
-    const Component = (
-      await import(`@/registry/blocks/${componentName}`)
-    ).default
+    const Component = (await import(`@/registry/blocks/${componentName}`))
+      .default;
 
     return (
       <ComponentPreview
@@ -53,15 +57,15 @@ export async function DynamicPreview({ componentName }: DynamicPreviewProps) {
       >
         <Component>Click me!</Component>
       </ComponentPreview>
-    )
+    );
   } catch (error) {
-    console.error('Error loading preview:', error)
+    console.error("Error loading preview:", error);
     return (
       <div className="my-8 rounded-lg border border-destructive p-8 text-center">
         <p className="text-destructive">
           Error loading preview: {String(error)}
         </p>
       </div>
-    )
+    );
   }
 }

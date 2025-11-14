@@ -1,0 +1,253 @@
+---
+title: Header 03
+description: A symmetrical header with centered logo and balanced navigation on both sides
+category: Headers
+subcategory: Navigation
+---
+
+import { PreviewBlock } from '@/components/preview-block'
+
+## Overview
+
+Header 03 features a unique symmetrical layout with navigation items balanced on both sides of a centered logo. This design creates visual harmony and is perfect for brands that want to emphasize their logo. The component is fully responsive with a left-side mobile drawer menu.
+
+### Features
+
+- ✅ **Symmetrical Layout** - Navigation balanced on left and right
+- ✅ **Centered Logo** - Brand prominence in the middle
+- ✅ **Left-Side Mobile Menu** - Drawer slides in from left on mobile
+- ✅ **Clean Design** - Minimalist approach with no action buttons
+- ✅ **Fully Responsive** - Adapts seamlessly from mobile to desktop
+- ✅ **Smooth Animations** - Slide-in transitions for mobile menu
+- ✅ **Accessible** - Keyboard navigation and screen reader support
+
+## Preview
+
+<PreviewBlock componentName="header-03" category="headers" />
+
+## Installation
+
+```bash
+npx shadcn@latest add button
+```
+
+Then install the component:
+
+```bash
+npx shadcn@latest add -r asth-ui header-03
+```
+
+## Dependencies
+
+This component uses the following shadcn/ui components:
+
+- `button` - Mobile menu toggle
+
+External dependencies:
+
+- `lucide-react` - Icons (Menu, X, Box)
+
+## Usage
+
+### Basic Usage
+
+```tsx
+import { Header03 } from '@/registry/blocks/headers/header-03'
+
+export default function App() {
+  return <Header03 />
+}
+```
+
+### With Custom Variant
+
+```tsx
+import { Header03 } from '@/registry/blocks/headers/header-03'
+
+export default function App() {
+  return <Header03 variant="dark" />
+}
+```
+
+### With Custom Styling
+
+```tsx
+import { Header03 } from '@/registry/blocks/headers/header-03'
+
+export default function App() {
+  return (
+    <Header03 
+      variant="default"
+      className="border-b-2"
+    />
+  )
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'dark' \| 'light'` | `'default'` | Visual style variant |
+| `className` | `string` | `undefined` | Additional CSS classes |
+
+## Navigation Structure
+
+The header uses a predefined symmetrical navigation structure:
+
+**Left Navigation:**
+- Features
+- Solutions
+
+**Center:**
+- Logo (Brix)
+
+**Right Navigation:**
+- Pricing
+- About
+
+This creates perfect balance and visual harmony.
+
+## Responsive Behavior
+
+This component uses a **single responsive design** that adapts across all breakpoints:
+
+### Mobile (< 1024px)
+- Menu button on left
+- Logo on right for better thumb access
+- Left-side drawer menu
+- All navigation items stacked vertically
+- Full overlay backdrop
+
+### Tablet (1024px+)
+- Full symmetrical layout visible
+- Compact spacing (16px between items)
+- Centered logo with balanced sides
+- Container padding: 64px
+
+### Desktop (> 1280px)
+- Optimal spacing (24px between nav items)
+- Container padding: 167px
+- Enhanced hover states
+- Maximum content width
+
+## Styling
+
+All styling uses shadcn/ui CSS variables:
+
+```css
+/* Customizable through your theme */
+{
+  --muted: /* Background color */
+  --muted-foreground: /* Text and logo color */
+  --foreground: /* Hover text color */
+  --background: /* Drawer background */
+  --border: /* Border color */
+}
+```
+
+### Color Usage
+
+- **Header Background**: `bg-muted`
+- **Text**: `text-muted-foreground` (normal), `text-foreground` (hover)
+- **Logo**: `text-muted-foreground`
+- **Mobile Drawer**: `bg-background` with `shadow-2xl`
+- **Backdrop**: `bg-black/50` with `backdrop-blur-sm`
+
+## Animations
+
+### Mobile Menu Animations
+
+```css
+/* Backdrop fade-in */
+animate-in fade-in duration-200
+
+/* Drawer slide from left */
+animate-in slide-in-from-left duration-300
+```
+
+Smooth transitions create a polished user experience.
+
+## Accessibility
+
+- **ARIA Labels**: Proper `aria-label` for menu buttons
+- **ARIA Modal**: Mobile drawer uses `role="dialog"` and `aria-modal="true"`
+- **Keyboard Support**: Full keyboard navigation support
+- **Focus Management**: Visible focus states with ring indicators
+- **Semantic HTML**: Proper `<header>` and `<nav>` structure
+
+## Best Practices
+
+1. **Symmetry**: Keep equal number of items on left and right (2-3 each)
+2. **Logo Size**: Keep logo compact for balanced appearance
+3. **Mobile UX**: Left-side menu is thumb-friendly on mobile devices
+4. **Navigation**: Limit to 4-6 total nav items for clarity
+5. **Spacing**: Use consistent padding across breakpoints
+
+## Layout Tips
+
+### Centered Logo Best Practices
+
+```tsx
+// Perfect for:
+- Brand-focused sites
+- Portfolio websites
+- Luxury/premium brands
+- Minimalist designs
+
+// Consider alternatives if:
+- You need search functionality
+- Multiple action buttons required
+- Long navigation menus (>6 items)
+```
+
+## Examples
+
+### Fixed Layout
+
+```tsx
+<div className="flex min-h-screen flex-col">
+  <Header03 />
+  <main className="flex-1">
+    {/* Your content */}
+  </main>
+</div>
+```
+
+### With Custom Colors
+
+```tsx
+<Header03
+  className="bg-background border-foreground/10"
+/>
+```
+
+### Dark Mode Support
+
+The component automatically adapts to your theme's dark mode settings through CSS variables.
+
+## Related Components
+
+- [Header 01](/docs/components/headers/header-01) - Left-aligned logo with actions
+- [Header 02](/docs/components/headers/header-02) - Multi-row with top bar
+- [Header 04](/docs/components/headers/header-04) - Modern header variant
+
+## Design Philosophy
+
+Header 03 follows a **symmetrical design principle**:
+- Visual balance creates calm, professional appearance
+- Centered logo emphasizes brand identity
+- Equal weight on both sides prevents bias
+- Negative space enhances clarity
+
+Perfect for brands that prioritize elegance and balance.
+
+## Component Code
+
+The full source code is available in the registry:
+
+```
+src/registry/blocks/headers/header-03.tsx
+```
+
+You can also view and copy the code directly from the preview above.

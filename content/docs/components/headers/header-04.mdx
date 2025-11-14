@@ -1,0 +1,284 @@
+---
+title: Header 04
+description: A modern header with logo left, centered navigation, search and action buttons
+category: Headers
+subcategory: Navigation
+---
+
+import { PreviewBlock } from '@/components/preview-block'
+
+## Overview
+
+Header 04 is a comprehensive modern header design featuring a left-aligned logo, centered navigation menu, search functionality, and action buttons. It includes dropdown support and a feature-rich mobile experience with a right-side drawer menu. Perfect for applications and marketing sites that need all essential features.
+
+### Features
+
+- ✅ **Modern Layout** - Logo left, nav center, actions right
+- ✅ **Search Functionality** - Icon button with search capability
+- ✅ **Multiple CTAs** - Sign In and Get Started buttons
+- ✅ **Dropdown Support** - Navigation items with dropdown indicator
+- ✅ **Mobile Drawer Menu** - Feature-rich right-side slide-in menu
+- ✅ **Smooth Animations** - Professional slide transitions
+- ✅ **Fully Responsive** - Optimized for all screen sizes
+- ✅ **Accessible** - WCAG compliant with full keyboard support
+
+## Preview
+
+<PreviewBlock componentName="header-04" category="headers" />
+
+## Installation
+
+```bash
+npx shadcn@latest add button
+```
+
+Then install the component:
+
+```bash
+npx shadcn@latest add -r asth-ui header-04
+```
+
+## Dependencies
+
+This component uses the following shadcn/ui components:
+
+- `button` - Search, action buttons, and mobile menu toggle
+
+External dependencies:
+
+- `lucide-react` - Icons (Menu, X, Search, ChevronDown, Box)
+
+## Usage
+
+### Basic Usage
+
+```tsx
+import { Header01 } from '@/registry/blocks/headers/header-04'
+
+export default function App() {
+  return <Header01 />
+}
+```
+
+### With Custom Variant
+
+```tsx
+import { Header01 } from '@/registry/blocks/headers/header-04'
+
+export default function App() {
+  return <Header01 variant="dark" />
+}
+```
+
+### With Custom Class
+
+```tsx
+import { Header01 } from '@/registry/blocks/headers/header-04'
+
+export default function App() {
+  return (
+    <Header01 
+      variant="default"
+      className="shadow-lg"
+    />
+  )
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'dark' \| 'light'` | `'default'` | Visual style variant |
+| `className` | `string` | `undefined` | Additional CSS classes |
+
+## Navigation Structure
+
+Default navigation items:
+
+- **Home** - Main landing page
+- **About** - About section
+- **Features** - Dropdown indicator (expandable)
+- **Pricing** - Pricing information
+
+All items are customizable within the component code.
+
+## Responsive Behavior
+
+This component uses a **single responsive design** that adapts across all breakpoints:
+
+### Mobile (< 1024px)
+- Logo on left, compact size
+- Hamburger menu on right
+- Right-side drawer slides in
+- Stacked navigation in drawer
+- Search button in drawer
+- Action buttons full-width at bottom
+- Organized in sections
+
+### Tablet (1024px - 1280px)
+- Full desktop layout visible
+- Compact spacing
+- All elements inline
+- Container padding: 64px
+- Responsive icon sizes
+
+### Desktop (> 1280px)
+- Optimal spacing throughout
+- Centered navigation group
+- Right-aligned action cluster
+- Container padding: 167px
+- Maximum content width
+
+## Styling
+
+All styling uses shadcn/ui CSS variables and can be customized through your theme:
+
+```css
+/* Color customization */
+{
+  --muted: /* Header background */
+  --muted-foreground: /* Text and icons */
+  --foreground: /* Hover state text */
+  --background: /* Button background */
+  --secondary: /* Secondary button */
+  --border: /* Border color */
+  --ring: /* Focus ring */
+}
+```
+
+### Color Usage
+
+- **Header**: `bg-muted` with `border-b`
+- **Navigation Text**: `text-muted-foreground` → `text-foreground` on hover
+- **Logo**: `text-muted-foreground`
+- **Search Button**: `variant="ghost"`
+- **Sign In**: `variant="secondary"`
+- **Get Started**: `variant="default"` (primary)
+
+## Button Sizing
+
+The component uses responsive button sizes:
+
+```tsx
+// Desktop (lg+)
+size="sm" 
+className="px-[18px] py-[15px]"
+
+// Mobile/Tablet
+className="w-full"
+```
+
+## Animations
+
+### Mobile Menu Animations
+
+```css
+/* Backdrop */
+animate-in fade-in duration-200
+
+/* Drawer from right */
+animate-in slide-in-from-right duration-300
+```
+
+Professional slide transitions create smooth user experience.
+
+## Accessibility
+
+- **ARIA Labels**: All icon buttons have descriptive labels
+- **ARIA Expanded**: Menu toggle indicates expanded state
+- **ARIA Modal**: Drawer uses proper dialog attributes
+- **Keyboard Navigation**: Full Tab, Enter, Escape support
+- **Focus Indicators**: Clear focus rings (`focus-visible:ring-2`)
+- **Semantic HTML**: Proper `<header>`, `<nav>`, `role="navigation"`
+- **Screen Reader Support**: Descriptive text for all actions
+
+## Mobile Menu Structure
+
+The mobile drawer is organized into sections:
+
+1. **Header**: "Menu" title with close button
+2. **Navigation**: Stacked links with hover states
+3. **Divider**: Visual separation
+4. **Actions Section**:
+   - Search button with icon
+   - Sign In button (secondary)
+   - Get Started button (primary)
+
+## Best Practices
+
+1. **Navigation Items**: Keep to 4-6 items for best UX
+2. **Search**: Implement actual search functionality in production
+3. **CTAs**: Provide clear action handlers for buttons
+4. **Mobile Menu**: Close menu after navigation to prevent confusion
+5. **Dropdown**: Implement actual dropdown menus for items with indicators
+6. **Performance**: Consider lazy loading for mobile menu
+
+## Examples
+
+### With Search Handler
+
+```tsx
+'use client'
+
+import { Header01 } from '@/registry/blocks/headers/header-04'
+
+export default function App() {
+  const handleSearch = () => {
+    // Open search modal or navigate to search page
+    console.log('Search clicked')
+  }
+
+  return <Header01 />
+}
+```
+
+### Fixed Header Layout
+
+```tsx
+<div className="min-h-screen">
+  <Header01 className="sticky top-0 z-50" />
+  <main className="pt-20">
+    {/* Your content */}
+  </main>
+</div>
+```
+
+### With Backdrop Blur
+
+```tsx
+<Header01 className="backdrop-blur-md bg-muted/80" />
+```
+
+## Design Notes
+
+This header design is **feature-complete** and includes:
+- ✅ Branding (logo)
+- ✅ Navigation (menu)
+- ✅ Search (utility)
+- ✅ Authentication (sign in)
+- ✅ Primary action (CTA)
+
+Perfect for:
+- SaaS applications
+- Marketing websites
+- Product landing pages
+- Web applications
+- E-commerce sites
+
+## Related Components
+
+- [Header 01](/docs/components/headers/header-01) - Similar layout with different style
+- [Header 02](/docs/components/headers/header-02) - Multi-row with contact info
+- [Header 03](/docs/components/headers/header-03) - Symmetrical centered logo
+- [Header 05](/docs/components/headers/header-05) - Multi-row variant
+
+## Component Code
+
+The full source code is available in the registry:
+
+```
+src/registry/blocks/headers/header-04.tsx
+```
+
+You can also view and copy the code directly from the preview above.

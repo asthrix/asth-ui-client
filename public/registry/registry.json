@@ -8,9 +8,9 @@
       "headers-header-01.tsx"
     ],
     "dependencies": [
-      "react",
       "framer-motion",
-      "lucide-react"
+      "lucide-react",
+      "react"
     ],
     "registryDependencies": [
       "button",
@@ -26,13 +26,49 @@
       "headers-header-02.tsx"
     ],
     "dependencies": [
-      "react",
       "framer-motion",
-      "lucide-react"
+      "lucide-react",
+      "react"
     ],
     "registryDependencies": [
       "button",
       "input",
+      "sheet"
+    ]
+  },
+  {
+    "name": "header-03",
+    "type": "components:block",
+    "category": "headers",
+    "description": "header 03 component",
+    "files": [
+      "headers-header-03.tsx"
+    ],
+    "dependencies": [
+      "framer-motion",
+      "lucide-react",
+      "react"
+    ],
+    "registryDependencies": [
+      "button",
+      "sheet"
+    ]
+  },
+  {
+    "name": "header-04",
+    "type": "components:block",
+    "category": "headers",
+    "description": "header 04 component",
+    "files": [
+      "headers-header-04.tsx"
+    ],
+    "dependencies": [
+      "framer-motion",
+      "lucide-react",
+      "react"
+    ],
+    "registryDependencies": [
+      "button",
       "sheet"
     ]
   }

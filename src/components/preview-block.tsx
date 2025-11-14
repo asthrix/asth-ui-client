@@ -1,14 +1,14 @@
-"use client"
+"use client";
 
-import { Suspense, lazy, useMemo, useState, useEffect } from "react"
-import { Tabs, Tab } from "fumadocs-ui/components/tabs"
-import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock"
-import { Skeleton } from "@/components/ui/skeleton"
+import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface PreviewBlockProps {
-  componentName: string
-  category: string
-  preview?: React.ReactNode
+  componentName: string;
+  category: string;
+  preview?: React.ReactNode;
 }
 
 export function PreviewBlock({
@@ -18,15 +18,17 @@ export function PreviewBlock({
 }: PreviewBlockProps) {
   // Dynamically import the component
   const Component = useMemo(
-    () =>
-      lazy(
-        () => import(`@/registry/blocks/${category}/${componentName}`)
-      ),
-    [category, componentName]
-  )
+    () => lazy(() => import(`@/registry/blocks/${category}/${componentName}`)),
+    [category, componentName],
+  );
 
   return (
-    <Tabs items={["Preview", "Code"]} defaultIndex={0} persist groupId={`${category}-${componentName}`}>
+    <Tabs
+      items={["Preview", "Code"]}
+      defaultIndex={0}
+      persist
+      groupId={`${category}-${componentName}`}
+    >
       <Tab value="Preview">
         <div className=" relative w-full overflow-x-auto rounded-lg border bg-background min-h-96">
           <Suspense
@@ -47,7 +49,7 @@ export function PreviewBlock({
         <CodeContent category={category} componentName={componentName} />
       </Tab>
     </Tabs>
-  )
+  );
 }
 
 // Component to handle code loading
@@ -55,29 +57,31 @@ function CodeContent({
   category,
   componentName,
 }: {
-  category: string
-  componentName: string
+  category: string;
+  componentName: string;
 }) {
-  const [code, setCode] = useState<string>("// Loading source code...")
-  
+  const [code, setCode] = useState<string>("// Loading source code...");
+
   useEffect(() => {
     async function loadCode() {
       try {
-        const response = await fetch(`/registry/${category}-${componentName}.tsx`)
+        const response = await fetch(
+          `/registry/${category}-${componentName}.tsx`,
+        );
         if (response.ok) {
-          const sourceCode = await response.text()
-          setCode(sourceCode)
+          const sourceCode = await response.text();
+          setCode(sourceCode);
         } else {
-          setCode("// Error loading source code")
+          setCode("// Error loading source code");
         }
       } catch (error) {
-        console.error("Failed to load source code:", error)
-        setCode("// Error loading source code")
+        console.error("Failed to load source code:", error);
+        setCode("// Error loading source code");
       }
     }
-    
-    loadCode()
-  }, [category, componentName])
+
+    loadCode();
+  }, [category, componentName]);
 
   return (
     <div className="not-prose">
@@ -104,5 +108,5 @@ function CodeContent({
         />
       </Suspense>
     </div>
-  )
+  );
 }

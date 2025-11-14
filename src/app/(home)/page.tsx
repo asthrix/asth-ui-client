@@ -1,5 +1,5 @@
-import { Header01 } from '@/registry/blocks/headers';
-import Link from 'next/link';
+import Link from "next/link";
+import { Header01 } from "@/registry/blocks/headers";
 
 export default function HomePage() {
   return (
@@ -7,13 +7,13 @@ export default function HomePage() {
       <Header01 />
       <h1 className="mb-4 text-2xl font-bold">Hello World</h1>
       <p className="text-fd-muted-foreground">
-        You can open{' '}
+        You can open{" "}
         <Link
           href="/docs"
           className="text-fd-foreground font-semibold underline"
         >
           /docs
-        </Link>{' '}
+        </Link>{" "}
         and see the documentation.
       </p>
     </main>
