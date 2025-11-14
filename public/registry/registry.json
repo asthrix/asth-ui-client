@@ -1,75 +1,88 @@
-[
-  {
-    "name": "header-01",
-    "type": "components:block",
-    "category": "headers",
-    "description": "header 01 component",
-    "files": [
-      "headers-header-01.tsx"
-    ],
-    "dependencies": [
-      "framer-motion",
-      "lucide-react",
-      "react"
-    ],
-    "registryDependencies": [
-      "button",
-      "sheet"
-    ]
-  },
-  {
-    "name": "header-02",
-    "type": "components:block",
-    "category": "headers",
-    "description": "header 02 component",
-    "files": [
-      "headers-header-02.tsx"
-    ],
-    "dependencies": [
-      "framer-motion",
-      "lucide-react",
-      "react"
-    ],
-    "registryDependencies": [
-      "button",
-      "input",
-      "sheet"
-    ]
-  },
-  {
-    "name": "header-03",
-    "type": "components:block",
-    "category": "headers",
-    "description": "header 03 component",
-    "files": [
-      "headers-header-03.tsx"
-    ],
-    "dependencies": [
-      "framer-motion",
-      "lucide-react",
-      "react"
-    ],
-    "registryDependencies": [
-      "button",
-      "sheet"
-    ]
-  },
-  {
-    "name": "header-04",
-    "type": "components:block",
-    "category": "headers",
-    "description": "header 04 component",
-    "files": [
-      "headers-header-04.tsx"
-    ],
-    "dependencies": [
-      "framer-motion",
-      "lucide-react",
-      "react"
-    ],
-    "registryDependencies": [
-      "button",
-      "sheet"
-    ]
-  }
-]
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "asth-ui",
+  "homepage": "https://github.com/asthrix/asth-ui-client",
+  "items": [
+    {
+      "name": "header-01",
+      "type": "registry:block",
+      "description": "header 01 component",
+      "files": [
+        {
+          "path": "registry/headers/header-01.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react",
+        "react"
+      ],
+      "registryDependencies": [
+        "button",
+        "sheet"
+      ]
+    },
+    {
+      "name": "header-02",
+      "type": "registry:block",
+      "description": "header 02 component",
+      "files": [
+        {
+          "path": "registry/headers/header-02.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react",
+        "react"
+      ],
+      "registryDependencies": [
+        "button",
+        "input",
+        "sheet"
+      ]
+    },
+    {
+      "name": "header-03",
+      "type": "registry:block",
+      "description": "header 03 component",
+      "files": [
+        {
+          "path": "registry/headers/header-03.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react",
+        "react"
+      ],
+      "registryDependencies": [
+        "button",
+        "sheet"
+      ]
+    },
+    {
+      "name": "header-04",
+      "type": "registry:block",
+      "description": "header 04 component",
+      "files": [
+        {
+          "path": "registry/headers/header-04.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react",
+        "react"
+      ],
+      "registryDependencies": [
+        "button",
+        "sheet"
+      ]
+    }
+  ]
+}

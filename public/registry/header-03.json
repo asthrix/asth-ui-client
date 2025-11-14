@@ -1,0 +1,21 @@
+{
+  "name": "header-03",
+  "type": "registry:block",
+  "description": "header 03 component",
+  "files": [
+    {
+      "path": "registry/headers/header-03.tsx",
+      "content": "\"use client\";\n\nimport { motion } from \"framer-motion\";\nimport { Box, Menu } from \"lucide-react\";\nimport * as React from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { Sheet, SheetContent, SheetTrigger } from \"@/components/ui/sheet\";\n\ninterface MenuItem {\n  label: string;\n  href: string;\n}\n\ninterface Header03Props {\n  logo?: React.ReactNode;\n  leftMenuItems?: MenuItem[];\n  rightMenuItems?: MenuItem[];\n}\n\nconst defaultLeftMenuItems: MenuItem[] = [\n  { label: \"Features\", href: \"/features\" },\n  { label: \"Solutions\", href: \"/solutions\" },\n];\n\nconst defaultRightMenuItems: MenuItem[] = [\n  { label: \"Pricing\", href: \"/pricing\" },\n  { label: \"About\", href: \"/about\" },\n];\n\nconst DefaultLogo = () => (\n  <div className=\"flex items-center gap-2\">\n    <Box className=\"w-7 h-7 text-muted-foreground\" aria-hidden=\"true\" />\n    <span className=\"text-lg font-semibold text-muted-foreground\">brix</span>\n  </div>\n);\n\nexport default function Header03({\n  logo,\n  leftMenuItems = defaultLeftMenuItems,\n  rightMenuItems = defaultRightMenuItems,\n}: Header03Props) {\n  const [isOpen, setIsOpen] = React.useState(false);\n\n  const allLinks = [...leftMenuItems, ...rightMenuItems];\n\n  return (\n    <motion.header\n      initial={{ y: -100 }}\n      animate={{ y: 0 }}\n      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}\n      className=\"sticky top-0 z-50 w-full border-b bg-muted/50 backdrop-blur supports-backdrop-filter:bg-muted/30\"\n    >\n      <div className=\"container flex h-[88px] items-center justify-between px-4 md:px-8 lg:px-[167px]\">\n        {/* Desktop Navigation - Left */}\n        <nav className=\"hidden items-center gap-6 md:flex\">\n          {leftMenuItems.map((link) => (\n            <a\n              key={link.label}\n              href={link.href}\n              className=\"text-base font-normal text-muted-foreground transition-colors hover:text-foreground\"\n            >\n              {link.label}\n            </a>\n          ))}\n        </nav>\n\n        {/* Center Logo */}\n        <div className=\"flex items-center md:absolute md:left-1/2 md:-translate-x-1/2\">\n          {logo || <DefaultLogo />}\n        </div>\n\n        {/* Desktop Navigation - Right */}\n        <nav className=\"hidden items-center gap-6 md:flex\">\n          {rightMenuItems.map((link) => (\n            <a\n              key={link.label}\n              href={link.href}\n              className=\"text-base font-normal text-muted-foreground transition-colors hover:text-foreground\"\n            >\n              {link.label}\n            </a>\n          ))}\n        </nav>\n\n        {/* Mobile Menu */}\n        <Sheet open={isOpen} onOpenChange={setIsOpen}>\n          <SheetTrigger asChild className=\"md:hidden\">\n            <Button variant=\"ghost\" size=\"icon\" className=\"shrink-0\">\n              <Menu className=\"h-5 w-5\" />\n              <span className=\"sr-only\">Toggle menu</span>\n            </Button>\n          </SheetTrigger>\n          <SheetContent side=\"left\" className=\"w-[300px] sm:w-[350px]\">\n            <nav className=\"flex flex-col gap-4 pt-6\">\n              {allLinks.map((link) => (\n                <a\n                  key={link.label}\n                  href={link.href}\n                  className=\"rounded-md px-3 py-2 text-base font-normal text-muted-foreground transition-colors hover:bg-accent hover:text-foreground\"\n                  onClick={() => setIsOpen(false)}\n                >\n                  {link.label}\n                </a>\n              ))}\n            </nav>\n          </SheetContent>\n        </Sheet>\n      </div>\n    </motion.header>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "dependencies": [
+    "framer-motion",
+    "lucide-react",
+    "react"
+  ],
+  "registryDependencies": [
+    "button",
+    "sheet"
+  ]
+}

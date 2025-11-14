@@ -102,13 +102,17 @@ async function buildRegistry() {
         const outputFilePath = path.join(OUTPUT_PATH, outputFileName);
         await fs.writeFile(outputFilePath, content);
 
-        // Add to registry
+        // Create registry item following shadcn schema
         const registryItem = {
           name: componentName,
-          type: "components:block",
-          category: category,
+          type: "registry:block",
           description: `${componentName.replace(/-/g, " ")} component`,
-          files: [outputFileName],
+          files: [
+            {
+              path: `registry/${category}/${file}`,
+              type: "registry:component",
+            },
+          ],
           dependencies: dependencies.length > 0 ? dependencies : undefined,
           registryDependencies:
             registryDependencies.length > 0 ? registryDependencies : undefined,
@@ -120,6 +124,26 @@ async function buildRegistry() {
             delete registryItem[key];
           }
         });
+
+        // Write individual component JSON file (with full content for direct access)
+        const componentJsonPath = path.join(
+          OUTPUT_PATH,
+          `${componentName}.json`,
+        );
+        const individualItem = {
+          ...registryItem,
+          files: [
+            {
+              path: `registry/${category}/${file}`,
+              content: content,
+              type: "registry:component",
+            },
+          ],
+        };
+        await fs.writeFile(
+          componentJsonPath,
+          JSON.stringify(individualItem, null, 2),
+        );
 
         registry.push(registryItem);
         totalComponents++;
@@ -138,9 +162,18 @@ async function buildRegistry() {
       console.log(""); // Empty line between categories
     }
 
-    // Write registry.json
+    // Write registry.json with proper schema following shadcn format
+    const registryJson = {
+      $schema: "https://ui.shadcn.com/schema/registry.json",
+      name: "asth-ui",
+      homepage: "https://github.com/asthrix/asth-ui-client",
+      items: registry,
+    };
     const registryJsonPath = path.join(OUTPUT_PATH, "registry.json");
-    await fs.writeFile(registryJsonPath, JSON.stringify(registry, null, 2));
+    await fs.writeFile(
+      registryJsonPath,
+      JSON.stringify(registryJson, null, 2),
+    );
 
     // Write categories index
     const categoriesData = categoryDirs.map((dir) => ({

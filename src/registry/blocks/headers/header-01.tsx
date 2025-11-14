@@ -46,14 +46,6 @@ const defaultMenuItems: MenuItem[] = [
 
 const DefaultLogo = () => (
   <div className="flex items-center gap-2">
-    {/* <div className="flex h-7 w-7 items-center justify-center rounded bg-muted-foreground">
-      <div className="grid grid-cols-2 gap-0.5">
-        <div className="h-1.5 w-1.5 rounded-sm bg-background" />
-        <div className="h-1.5 w-1.5 rounded-sm bg-background" />
-        <div className="h-1.5 w-1.5 rounded-sm bg-background" />
-        <div className="h-1.5 w-1.5 rounded-sm bg-background" />
-      </div>
-    </div> */}
     <Box className="w-7 h-7 text-muted-foreground" aria-hidden="true" />
     <span className="text-lg font-semibold text-muted-foreground">brix</span>
   </div>

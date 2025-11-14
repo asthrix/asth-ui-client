@@ -1,10 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Box, ChevronDown, Menu, Search } from "lucide-react";
+import { ArrowRight, Box, ChevronDown, Menu } from "lucide-react";
 import * as React from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -21,11 +20,13 @@ interface MenuItem {
   children?: MenuItem[];
 }
 
-interface Header02Props {
+interface Header01Props {
   logo?: React.ReactNode;
   menuItems?: MenuItem[];
-  searchPlaceholder?: string;
-  onSearch?: (query: string) => void;
+  loginText?: string;
+  ctaText?: string;
+  onLogin?: () => void;
+  onCta?: () => void;
 }
 
 const defaultMenuItems: MenuItem[] = [
@@ -40,37 +41,25 @@ const defaultMenuItems: MenuItem[] = [
       { label: "Feature 3", href: "/features/3" },
     ],
   },
-  { label: "Contact", href: "/contact" },
+  { label: "Pricing", href: "/pricing" },
 ];
 
 const DefaultLogo = () => (
   <div className="flex items-center gap-2">
-    {/* <div className="flex h-7 w-7 items-center justify-center rounded bg-muted-foreground">
-      <div className="grid grid-cols-2 gap-0.5">
-        <div className="h-1.5 w-1.5 rounded-sm bg-background" />
-        <div className="h-1.5 w-1.5 rounded-sm bg-background" />
-        <div className="h-1.5 w-1.5 rounded-sm bg-background" />
-        <div className="h-1.5 w-1.5 rounded-sm bg-background" />
-      </div>
-    </div> */}
     <Box className="w-7 h-7 text-muted-foreground" aria-hidden="true" />
     <span className="text-lg font-semibold text-muted-foreground">brix</span>
   </div>
 );
 
-export default function Header02({
+export default function Header01({
   logo,
   menuItems = defaultMenuItems,
-  searchPlaceholder = "Search for...",
-  onSearch,
-}: Header02Props) {
+  loginText = "Login",
+  ctaText = "Get in touch",
+  onLogin,
+  onCta,
+}: Header01Props) {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [searchQuery, setSearchQuery] = React.useState("");
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSearch?.(searchQuery);
-  };
 
   return (
     <motion.header
@@ -79,11 +68,11 @@ export default function Header02({
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className="sticky top-0 z-50 w-full border-b bg-muted/50 backdrop-blur supports-backdrop-filter:bg-muted/30"
     >
-      <div className="container flex h-[92px] items-center justify-between px-4 md:px-8 lg:px-[167px]">
+      <div className="container flex h-[88px] items-center justify-between px-4 md:px-8 lg:px-[167px]">
         {/* Logo */}
         <div className="flex items-center">{logo || <DefaultLogo />}</div>
 
-        {/* Desktop Navigation & Search */}
+        {/* Desktop Navigation */}
         <div className="hidden items-center gap-8 md:flex">
           <NavigationMenu>
             <NavigationMenuList>
@@ -126,17 +115,23 @@ export default function Header02({
             </NavigationMenuList>
           </NavigationMenu>
 
-          {/* Desktop Search Input */}
-          <form onSubmit={handleSearch} className="relative">
-            <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder={searchPlaceholder}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="h-auto w-[286px] rounded-lg border-muted bg-background pl-10 pr-4 py-4 text-sm text-muted-foreground placeholder:text-muted-foreground focus-visible:ring-1"
-            />
-          </form>
+          {/* Desktop Action Buttons */}
+          <div className="flex items-center gap-4">
+            <Button
+              variant="outline"
+              className="h-auto rounded-md border-border bg-background px-[18px] py-[15px] text-sm font-semibold text-muted-foreground shadow-none hover:bg-accent hover:text-foreground"
+              onClick={onLogin}
+            >
+              {loginText}
+            </Button>
+            <Button
+              className="h-auto gap-1 rounded-md bg-muted-foreground px-[18px] py-3.5 text-sm font-semibold text-background shadow-sm hover:bg-muted-foreground/90"
+              onClick={onCta}
+            >
+              {ctaText}
+              <ArrowRight className="h-3 w-3" />
+            </Button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
@@ -149,19 +144,6 @@ export default function Header02({
           </SheetTrigger>
           <SheetContent side="right" className="w-[300px] sm:w-[350px]">
             <nav className="flex flex-col gap-4 pt-6">
-              {/* Mobile Search */}
-              <form onSubmit={handleSearch} className="relative">
-                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                <Input
-                  type="search"
-                  placeholder={searchPlaceholder}
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 text-sm"
-                />
-              </form>
-
-              {/* Mobile Menu Items */}
               {menuItems.map((item) => (
                 <div key={item.label} className="flex flex-col gap-2">
                   <a
@@ -190,6 +172,30 @@ export default function Header02({
                   )}
                 </div>
               ))}
+
+              {/* Mobile Action Buttons */}
+              <div className="mt-4 flex flex-col gap-3 border-t pt-4">
+                <Button
+                  variant="outline"
+                  className="w-full justify-center text-sm font-semibold"
+                  onClick={() => {
+                    onLogin?.();
+                    setIsOpen(false);
+                  }}
+                >
+                  {loginText}
+                </Button>
+                <Button
+                  className="w-full justify-center gap-1 bg-muted-foreground text-sm font-semibold text-background hover:bg-muted-foreground/90"
+                  onClick={() => {
+                    onCta?.();
+                    setIsOpen(false);
+                  }}
+                >
+                  {ctaText}
+                  <ArrowRight className="h-3 w-3" />
+                </Button>
+              </div>
             </nav>
           </SheetContent>
         </Sheet>
