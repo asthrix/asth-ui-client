@@ -53,9 +53,15 @@ function extractDependencies(content) {
     // Only external packages (not relative imports like ./ or @/)
     if (!importPath.startsWith(".") && !importPath.startsWith("@/")) {
       // Extract package name (handle scoped packages like @radix-ui/react-slot)
-      const packageName = importPath.startsWith("@")
+      let packageName = importPath.startsWith("@")
         ? importPath.split("/").slice(0, 2).join("/")
         : importPath.split("/")[0];
+      
+      // Normalize motion/react or motion/* to just "motion"
+      if (packageName === "motion" || importPath.startsWith("motion/")) {
+        packageName = "motion";
+      }
+      
       deps.add(packageName);
     }
   }
