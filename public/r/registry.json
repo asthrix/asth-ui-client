@@ -6,7 +6,7 @@
     {
       "name": "header-01",
       "type": "registry:block",
-      "description": "header 01 component",
+      "description": "header 01 block component",
       "files": [
         {
           "path": "blocks/headers/header-01.tsx",
@@ -27,7 +27,7 @@
     {
       "name": "header-02",
       "type": "registry:block",
-      "description": "header 02 component",
+      "description": "header 02 block component",
       "files": [
         {
           "path": "blocks/headers/header-02.tsx",
@@ -49,7 +49,7 @@
     {
       "name": "header-03",
       "type": "registry:block",
-      "description": "header 03 component",
+      "description": "header 03 block component",
       "files": [
         {
           "path": "blocks/headers/header-03.tsx",
@@ -70,7 +70,7 @@
     {
       "name": "header-04",
       "type": "registry:block",
-      "description": "header 04 component",
+      "description": "header 04 block component",
       "files": [
         {
           "path": "blocks/headers/header-04.tsx",
@@ -86,6 +86,88 @@
       "registryDependencies": [
         "button",
         "sheet"
+      ]
+    },
+    {
+      "name": "expandable-card-demo-grid",
+      "type": "registry:component",
+      "description": "expandable card demo grid component",
+      "files": [
+        {
+          "path": "components/expandable-card-demo-grid.tsx",
+          "type": "registry:component",
+          "target": "components/expandable-card-demo-grid.tsx"
+        }
+      ],
+      "dependencies": [
+        "react",
+        "motion"
+      ]
+    },
+    {
+      "name": "expandable-card-demo-standard",
+      "type": "registry:component",
+      "description": "expandable card demo standard component",
+      "files": [
+        {
+          "path": "components/expandable-card-demo-standard.tsx",
+          "type": "registry:component",
+          "target": "components/expandable-card-demo-standard.tsx"
+        }
+      ],
+      "dependencies": [
+        "react",
+        "motion"
+      ]
+    },
+    {
+      "name": "preview-block",
+      "type": "registry:component",
+      "description": "preview block component",
+      "files": [
+        {
+          "path": "components/preview-block.tsx",
+          "type": "registry:component",
+          "target": "components/preview-block.tsx"
+        }
+      ],
+      "dependencies": [
+        "fumadocs-ui",
+        "react"
+      ],
+      "registryDependencies": [
+        "skeleton"
+      ]
+    },
+    {
+      "name": "use-outside-click",
+      "type": "registry:hook",
+      "description": "use outside click hook",
+      "files": [
+        {
+          "path": "hooks/use-outside-click.ts",
+          "type": "registry:component",
+          "target": "hooks/use-outside-click.ts"
+        }
+      ],
+      "dependencies": [
+        "react"
+      ]
+    },
+    {
+      "name": "hover-border-gradient",
+      "type": "registry:ui",
+      "description": "hover border gradient ui component",
+      "files": [
+        {
+          "path": "ui/hover-border-gradient.tsx",
+          "type": "registry:component",
+          "target": "components/ui/hover-border-gradient.tsx"
+        }
+      ],
+      "dependencies": [
+        "react",
+        "motion"
       ]
     }
   ]

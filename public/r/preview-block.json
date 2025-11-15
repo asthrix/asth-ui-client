@@ -1,0 +1,20 @@
+{
+  "name": "preview-block",
+  "type": "registry:component",
+  "description": "preview block component",
+  "files": [
+    {
+      "path": "components/preview-block.tsx",
+      "content": "\"use client\";\n\nimport { DynamicCodeBlock } from \"fumadocs-ui/components/dynamic-codeblock\";\nimport { Tab, Tabs } from \"fumadocs-ui/components/tabs\";\nimport { lazy, Suspense, useEffect, useMemo, useState } from \"react\";\nimport { Skeleton } from \"@/components/ui/skeleton\";\n\ninterface PreviewBlockProps {\n  componentName: string;\n  category: string;\n  preview?: React.ReactNode;\n}\n\nexport function PreviewBlock({\n  componentName,\n  category,\n  preview,\n}: PreviewBlockProps) {\n  // Dynamically import the component\n  const Component = useMemo(\n    () => lazy(() => import(`@/registry/blocks/${category}/${componentName}`)),\n    [category, componentName],\n  );\n\n  return (\n    <Tabs\n      items={[\"Preview\", \"Code\"]}\n      defaultIndex={0}\n      persist\n      groupId={`${category}-${componentName}`}\n    >\n      <Tab value=\"Preview\">\n        <div className=\" relative w-full overflow-x-auto rounded-lg border bg-background min-h-96\">\n          <Suspense\n            fallback={\n              <div className=\"flex items-center justify-center min-h-[200px] p-8\">\n                <div className=\"space-y-4 w-full max-w-3xl\">\n                  <Skeleton className=\"h-20 w-full\" />\n                  <Skeleton className=\"h-20 w-full\" />\n                </div>\n              </div>\n            }\n          >\n            {preview || <Component />}\n          </Suspense>\n        </div>\n      </Tab>\n      <Tab value=\"Code\">\n        <CodeContent category={category} componentName={componentName} />\n      </Tab>\n    </Tabs>\n  );\n}\n\n// Component to handle code loading\nfunction CodeContent({\n  category,\n  componentName,\n}: {\n  category: string;\n  componentName: string;\n}) {\n  const [code, setCode] = useState<string>(\"// Loading source code...\");\n\n  useEffect(() => {\n    async function loadCode() {\n      try {\n        const response = await fetch(\n          `/registry/${category}-${componentName}.tsx`,\n        );\n        if (response.ok) {\n          const sourceCode = await response.text();\n          setCode(sourceCode);\n        } else {\n          setCode(\"// Error loading source code\");\n        }\n      } catch (error) {\n        console.error(\"Failed to load source code:\", error);\n        setCode(\"// Error loading source code\");\n      }\n    }\n\n    loadCode();\n  }, [category, componentName]);\n\n  return (\n    <div className=\"not-prose\">\n      <Suspense\n        fallback={\n          <div className=\"rounded-lg border bg-muted p-4\">\n            <div className=\"space-y-2\">\n              <Skeleton className=\"h-4 w-full\" />\n              <Skeleton className=\"h-4 w-3/4\" />\n              <Skeleton className=\"h-4 w-5/6\" />\n            </div>\n          </div>\n        }\n      >\n        <DynamicCodeBlock\n          lang=\"tsx\"\n          code={code}\n          options={{\n            themes: {\n              light: \"github-light\",\n              dark: \"github-dark\",\n            },\n          }}\n        />\n      </Suspense>\n    </div>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "components/preview-block.tsx"
+    }
+  ],
+  "dependencies": [
+    "fumadocs-ui",
+    "react"
+  ],
+  "registryDependencies": [
+    "skeleton"
+  ]
+}

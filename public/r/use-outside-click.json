@@ -1,0 +1,16 @@
+{
+  "name": "use-outside-click",
+  "type": "registry:hook",
+  "description": "use outside click hook",
+  "files": [
+    {
+      "path": "hooks/use-outside-click.ts",
+      "content": "import React, { useEffect } from \"react\";\n\nexport const useOutsideClick = (\n  ref: React.RefObject<HTMLDivElement>,\n  callback: Function\n) => {\n  useEffect(() => {\n    const listener = (event: any) => {\n      if (!ref.current || ref.current.contains(event.target)) {\n        return;\n      }\n      callback(event);\n    };\n\n    document.addEventListener(\"mousedown\", listener);\n    document.addEventListener(\"touchstart\", listener);\n\n    return () => {\n      document.removeEventListener(\"mousedown\", listener);\n      document.removeEventListener(\"touchstart\", listener);\n    };\n  }, [ref, callback]);\n};\n",
+      "type": "registry:component",
+      "target": "hooks/use-outside-click.ts"
+    }
+  ],
+  "dependencies": [
+    "react"
+  ]
+}

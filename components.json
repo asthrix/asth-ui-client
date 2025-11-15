@@ -16,10 +16,10 @@
     "utils": "@/lib/utils",
     "ui": "@/components/ui",
     "lib": "@/lib",
-    "hooks": "@/hooks",
-    "blocks": "@/components/blocks"
+    "hooks": "@/hooks"
   },
   "registries": {
-    "@asth-ui": "http://localhost:3000/r/{name}.json"
+    "@asth-ui": "http://localhost:3000/r/{name}.json",
+    "@aceternity": "https://ui.aceternity.com/registry/{name}.json"
   }
 }
