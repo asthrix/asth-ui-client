@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const REGISTRY_PATH = path.join(__dirname, "../src/registry/blocks");
-const OUTPUT_PATH = path.join(__dirname, "../public/registry");
+const OUTPUT_PATH = path.join(__dirname, "../public/r");
 
 /**
  * Extract npm dependencies from import statements
@@ -97,11 +97,6 @@ async function buildRegistry() {
         const dependencies = extractDependencies(content);
         const registryDependencies = extractRegistryDependencies(content);
 
-        // Save component file to public/registry with category prefix
-        const outputFileName = `${category}-${file}`;
-        const outputFilePath = path.join(OUTPUT_PATH, outputFileName);
-        await fs.writeFile(outputFilePath, content);
-
         // Create registry item following shadcn schema
         const registryItem = {
           name: componentName,
@@ -109,8 +104,9 @@ async function buildRegistry() {
           description: `${componentName.replace(/-/g, " ")} component`,
           files: [
             {
-              path: `registry/${category}/${file}`,
+              path: `blocks/${category}/${componentName}.tsx`,
               type: "registry:component",
+              target: `components/blocks/${category}/${componentName}.tsx`,
             },
           ],
           dependencies: dependencies.length > 0 ? dependencies : undefined,
@@ -134,9 +130,10 @@ async function buildRegistry() {
           ...registryItem,
           files: [
             {
-              path: `registry/${category}/${file}`,
+              path: `blocks/${category}/${componentName}.tsx`,
               content: content,
               type: "registry:component",
+              target: "",
             },
           ],
         };
