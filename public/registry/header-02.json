@@ -10,14 +10,6 @@
       "target": ""
     }
   ],
-  "dependencies": [
-    "framer-motion",
-    "lucide-react",
-    "react"
-  ],
-  "registryDependencies": [
-    "button",
-    "input",
-    "sheet"
-  ]
+  "dependencies": ["framer-motion", "lucide-react", "react"],
+  "registryDependencies": ["button", "input", "sheet"]
 }

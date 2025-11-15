@@ -56,12 +56,12 @@ function extractDependencies(content) {
       let packageName = importPath.startsWith("@")
         ? importPath.split("/").slice(0, 2).join("/")
         : importPath.split("/")[0];
-      
+
       // Normalize motion/react or motion/* to just "motion"
       if (packageName === "motion" || importPath.startsWith("motion/")) {
         packageName = "motion";
       }
-      
+
       deps.add(packageName);
     }
   }
@@ -98,7 +98,7 @@ async function buildRegistry() {
     } catch (error) {
       // Directory might not exist, that's okay
     }
-    
+
     // Ensure output directory exists
     await fs.mkdir(OUTPUT_PATH, { recursive: true });
     console.log("✨ Output directory cleaned\n");
@@ -151,10 +151,7 @@ async function buildRegistry() {
       items: registry,
     };
     const registryJsonPath = path.join(OUTPUT_PATH, "registry.json");
-    await fs.writeFile(
-      registryJsonPath,
-      JSON.stringify(registryJson, null, 2),
-    );
+    await fs.writeFile(registryJsonPath, JSON.stringify(registryJson, null, 2));
 
     // Write categories index (from all subdirectories)
     const categories = new Set();
@@ -213,7 +210,11 @@ async function processDirectory(
       );
     } else if (entry.name.endsWith(".tsx") || entry.name.endsWith(".ts")) {
       // Skip type definition files and test files
-      if (entry.name.endsWith(".d.ts") || entry.name.includes(".test.") || entry.name.includes(".spec.")) {
+      if (
+        entry.name.endsWith(".d.ts") ||
+        entry.name.includes(".test.") ||
+        entry.name.includes(".spec.")
+      ) {
         continue;
       }
 
@@ -261,10 +262,7 @@ async function processDirectory(
       });
 
       // Write individual component JSON file (with full content)
-      const componentJsonPath = path.join(
-        OUTPUT_PATH,
-        `${componentName}.json`,
-      );
+      const componentJsonPath = path.join(OUTPUT_PATH, `${componentName}.json`);
       const individualItem = {
         ...registryItem,
         files: [
