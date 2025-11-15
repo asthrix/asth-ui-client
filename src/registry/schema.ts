@@ -14,7 +14,13 @@ export type RegistryItemType = (typeof registryItemTypeSchema)[number];
 export interface RegistryFile {
   path: string;
   content?: string;
-  type: "registry:component" | "registry:page" | "registry:ui" | "registry:hook" | "registry:lib" | "registry:style";
+  type:
+    | "registry:component"
+    | "registry:page"
+    | "registry:ui"
+    | "registry:hook"
+    | "registry:lib"
+    | "registry:style";
   target?: string;
 }
 

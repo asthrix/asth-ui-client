@@ -19,11 +19,12 @@ export function PreviewBlock({
   // Dynamically import the component based on registry type
   // category can be: "ui", "blocks/headers", "components", "hooks", etc.
   const Component = useMemo(
-    () => lazy(() => 
-      import(`@/registry/${category}/${componentName}`).then((module) => ({
-        default: module.default || module,
-      }))
-    ),
+    () =>
+      lazy(() =>
+        import(`@/registry/${category}/${componentName}`).then((module) => ({
+          default: module.default || module,
+        })),
+      ),
     [category, componentName],
   );
 

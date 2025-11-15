@@ -14,15 +14,8 @@
           "target": "components/blocks/headers/header-01.tsx"
         }
       ],
-      "dependencies": [
-        "framer-motion",
-        "lucide-react",
-        "react"
-      ],
-      "registryDependencies": [
-        "button",
-        "sheet"
-      ]
+      "dependencies": ["framer-motion", "lucide-react", "react"],
+      "registryDependencies": ["button", "sheet"]
     },
     {
       "name": "header-02",
@@ -35,16 +28,8 @@
           "target": "components/blocks/headers/header-02.tsx"
         }
       ],
-      "dependencies": [
-        "framer-motion",
-        "lucide-react",
-        "react"
-      ],
-      "registryDependencies": [
-        "button",
-        "input",
-        "sheet"
-      ]
+      "dependencies": ["framer-motion", "lucide-react", "react"],
+      "registryDependencies": ["button", "input", "sheet"]
     },
     {
       "name": "header-03",
@@ -57,15 +42,8 @@
           "target": "components/blocks/headers/header-03.tsx"
         }
       ],
-      "dependencies": [
-        "framer-motion",
-        "lucide-react",
-        "react"
-      ],
-      "registryDependencies": [
-        "button",
-        "sheet"
-      ]
+      "dependencies": ["framer-motion", "lucide-react", "react"],
+      "registryDependencies": ["button", "sheet"]
     },
     {
       "name": "header-04",
@@ -78,15 +56,8 @@
           "target": "components/blocks/headers/header-04.tsx"
         }
       ],
-      "dependencies": [
-        "framer-motion",
-        "lucide-react",
-        "react"
-      ],
-      "registryDependencies": [
-        "button",
-        "sheet"
-      ]
+      "dependencies": ["framer-motion", "lucide-react", "react"],
+      "registryDependencies": ["button", "sheet"]
     }
   ]
 }

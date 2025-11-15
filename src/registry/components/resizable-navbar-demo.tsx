@@ -25,7 +25,7 @@ export default function ResizableNavbarDemo() {
   return (
     <div className="relative w-full h-[600px] overflow-hidden">
       {/* Hero content to show scroll behavior */}
-      <div className="h-[200vh] bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950">
+      <div className="h-[200vh] bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950">
         <Navbar>
           {/* Desktop Navigation */}
           <NavBody>

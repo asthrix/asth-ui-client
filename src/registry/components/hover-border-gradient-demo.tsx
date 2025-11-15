@@ -27,7 +27,7 @@ export default function HoverBorderGradientDemo() {
       <HoverBorderGradient
         as="button"
         containerClassName="rounded-full"
-        className="bg-gradient-to-r from-purple-600 to-pink-600 text-white"
+        className="bg-linear-to-r from-purple-600 to-pink-600 text-white"
       >
         <span className="px-8 py-4">Custom Colors</span>
       </HoverBorderGradient>
