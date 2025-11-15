@@ -1,0 +1,548 @@
+---
+title: Resizable Navbar
+description: A responsive navigation bar that resizes and transforms on scroll with smooth animations
+category: Components
+subcategory: Navigation
+---
+
+import { PreviewBlock } from '@/components/preview-block'
+
+## Overview
+
+Resizable Navbar is a sophisticated navigation component that dynamically adapts its appearance based on scroll position. It features smooth resize animations, responsive design for both desktop and mobile, and a modular architecture with separate sub-components for complete customization.
+
+### Features
+
+- ✅ **Scroll-based Resizing** - Automatically shrinks and applies blur effect on scroll
+- ✅ **Fully Responsive** - Separate desktop and mobile implementations
+- ✅ **Animated Transitions** - Smooth spring-based animations powered by Motion
+- ✅ **Hover Effects** - Interactive link hover states with animated background
+- ✅ **Mobile Menu** - Full-featured mobile navigation with toggle
+- ✅ **Modular Components** - Compose with reusable sub-components
+- ✅ **Customizable Buttons** - Multiple button variants (primary, secondary, dark, gradient)
+- ✅ **Dark Mode Support** - Works seamlessly with light and dark themes
+
+## Preview
+
+<PreviewBlock componentName="resizable-navbar-demo" category="components" />
+
+## Installation
+
+### Using CLI (Recommended)
+
+```bash
+npx shadcn@latest add @asth-ui/resizable-navbar
+```
+
+### Manual Installation
+
+First, install the required dependencies:
+
+```bash
+npm install motion @tabler/icons-react
+```
+
+Copy the component code from the preview above and save it to:
+
+```tsx title="components/ui/resizable-navbar.tsx"
+// Component code available in preview
+```
+
+## Dependencies
+
+External dependencies:
+
+- `motion` - Scroll tracking and smooth animations
+- `@tabler/icons-react` - Menu icons (IconMenu2, IconX)
+- `react` - Core React functionality
+
+Internal dependencies:
+
+- `@/lib/utils` - cn utility function for class merging
+
+## Component Architecture
+
+The Resizable Navbar is composed of several sub-components:
+
+### Main Components
+
+- **`Navbar`** - Root container with scroll detection
+- **`NavBody`** - Desktop navigation body (hidden on mobile)
+- **`MobileNav`** - Mobile navigation container (hidden on desktop)
+
+### Child Components
+
+- **`NavItems`** - Navigation links with hover effects
+- **`MobileNavHeader`** - Mobile navigation header section
+- **`MobileNavMenu`** - Expandable mobile menu
+- **`MobileNavToggle`** - Hamburger menu button
+- **`NavbarLogo`** - Logo component
+- **`NavbarButton`** - Call-to-action buttons
+
+## Usage
+
+### Basic Usage
+
+```tsx
+"use client";
+import {
+  Navbar,
+  NavBody,
+  NavItems,
+  MobileNav,
+  MobileNavHeader,
+  MobileNavMenu,
+  MobileNavToggle,
+  NavbarLogo,
+  NavbarButton,
+} from '@/components/ui/resizable-navbar'
+import { useState } from 'react'
+
+export default function App() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const navItems = [
+    { name: "Home", link: "/" },
+    { name: "About", link: "/about" },
+    { name: "Services", link: "/services" },
+    { name: "Contact", link: "/contact" },
+  ];
+
+  return (
+    <Navbar>
+      {/* Desktop Navigation */}
+      <NavBody>
+        <NavbarLogo />
+        <NavItems items={navItems} />
+        <div className="flex gap-2">
+          <NavbarButton variant="secondary">Login</NavbarButton>
+          <NavbarButton variant="primary">Sign Up</NavbarButton>
+        </div>
+      </NavBody>
+
+      {/* Mobile Navigation */}
+      <MobileNav>
+        <MobileNavHeader>
+          <NavbarLogo />
+          <MobileNavToggle isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
+        </MobileNavHeader>
+        <MobileNavMenu isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <NavItems 
+            items={navItems} 
+            onItemClick={() => setIsOpen(false)}
+            className="flex-col items-start gap-4"
+          />
+          <div className="flex flex-col gap-2 w-full">
+            <NavbarButton variant="secondary" className="w-full">
+              Login
+            </NavbarButton>
+            <NavbarButton variant="primary" className="w-full">
+              Sign Up
+            </NavbarButton>
+          </div>
+        </MobileNavMenu>
+      </MobileNav>
+    </Navbar>
+  )
+}
+```
+
+### With Custom Logo
+
+```tsx
+const CustomLogo = () => {
+  return (
+    <a href="/" className="flex items-center gap-2 px-2">
+      <img src="/logo.png" alt="Logo" width={32} height={32} />
+      <span className="font-bold text-lg">MyBrand</span>
+    </a>
+  );
+};
+
+<Navbar>
+  <NavBody>
+    <CustomLogo />
+    {/* ... rest of nav */}
+  </NavBody>
+</Navbar>
+```
+
+### Fixed Position Navbar
+
+```tsx
+// Change the className in Navbar component from "sticky" to "fixed"
+<Navbar className="fixed inset-x-0 top-0 z-40 w-full">
+  {/* ... */}
+</Navbar>
+```
+
+## Props
+
+### Navbar Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `React.ReactNode` | - | Child components (NavBody, MobileNav) |
+| `className` | `string?` | `undefined` | Additional CSS classes for the container |
+
+**Default Classes**: `"sticky inset-x-0 top-20 z-40 w-full"` (change to `"fixed"` if needed)
+
+### NavBody Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `React.ReactNode` | - | Navigation content (logo, items, buttons) |
+| `className` | `string?` | `undefined` | Additional CSS classes |
+| `visible` | `boolean?` | `false` | Auto-injected by Navbar based on scroll |
+
+**Behavior**: 
+- Width: 100% → 40% when visible (scrolled)
+- Blur effect and shadow applied on scroll
+- Hidden on mobile (lg:flex)
+
+### NavItems Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `items` | `Array<{name: string, link: string}>` | - | Navigation links array |
+| `className` | `string?` | `undefined` | Additional CSS classes |
+| `onItemClick` | `() => void?` | `undefined` | Callback when item is clicked (useful for closing mobile menu) |
+
+**Features**:
+- Animated hover background using Motion's layoutId
+- Hover state tracking
+
+### MobileNav Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `React.ReactNode` | - | Mobile navigation content |
+| `className` | `string?` | `undefined` | Additional CSS classes |
+| `visible` | `boolean?` | `false` | Auto-injected by Navbar based on scroll |
+
+**Behavior**:
+- Width: 100% → 90% when visible
+- Border radius changes on scroll
+- Hidden on desktop (lg:hidden)
+
+### MobileNavHeader Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `React.ReactNode` | - | Header content (typically logo and toggle) |
+| `className` | `string?` | `undefined` | Additional CSS classes |
+
+### MobileNavMenu Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `React.ReactNode` | - | Menu content (nav items, buttons) |
+| `className` | `string?` | `undefined` | Additional CSS classes |
+| `isOpen` | `boolean` | - | Controls menu visibility |
+| `onClose` | `() => void` | - | Callback to close the menu |
+
+**Features**:
+- AnimatePresence for smooth enter/exit
+- Full-width dropdown with shadow
+
+### MobileNavToggle Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `isOpen` | `boolean` | - | Current menu state |
+| `onClick` | `() => void` | - | Toggle handler |
+
+**Icons**: Shows IconX when open, IconMenu2 when closed
+
+### NavbarButton Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `React.ReactNode` | - | Button content |
+| `href` | `string?` | `undefined` | Link URL (if used as link) |
+| `as` | `React.ElementType?` | `"a"` | HTML element type (a, button, Link) |
+| `variant` | `"primary" \| "secondary" \| "dark" \| "gradient"?` | `"primary"` | Button style variant |
+| `className` | `string?` | `undefined` | Additional CSS classes |
+| `...props` | `HTMLAttributes` | - | Additional HTML attributes |
+
+**Variants**:
+- **primary**: White background with shadow
+- **secondary**: Transparent background, no shadow
+- **dark**: Black background with shadow
+- **gradient**: Blue gradient background
+
+## Examples
+
+### E-commerce Header
+
+```tsx
+"use client";
+import { useState } from 'react'
+import { ShoppingCart } from 'lucide-react'
+import {
+  Navbar,
+  NavBody,
+  NavItems,
+  NavbarButton,
+  // ... mobile components
+} from '@/components/ui/resizable-navbar'
+
+export default function EcommerceNav() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(3);
+
+  const navItems = [
+    { name: "Shop", link: "/shop" },
+    { name: "Categories", link: "/categories" },
+    { name: "Deals", link: "/deals" },
+    { name: "About", link: "/about" },
+  ];
+
+  return (
+    <Navbar>
+      <NavBody>
+        <div className="flex items-center gap-2">
+          <img src="/logo.svg" alt="Store" className="h-8" />
+          <span className="font-bold text-xl">ShopName</span>
+        </div>
+        
+        <NavItems items={navItems} />
+        
+        <div className="flex items-center gap-4">
+          <button className="relative">
+            <ShoppingCart className="h-5 w-5" />
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                {cartCount}
+              </span>
+            )}
+          </button>
+          <NavbarButton variant="gradient">Shop Now</NavbarButton>
+        </div>
+      </NavBody>
+
+      {/* Mobile Nav similar structure */}
+    </Navbar>
+  );
+}
+```
+
+### SaaS Product Header
+
+```tsx
+"use client";
+import { useState } from 'react'
+import {
+  Navbar,
+  NavBody,
+  NavItems,
+  NavbarButton,
+  // ... mobile components
+} from '@/components/ui/resizable-navbar'
+
+export default function SaaSNav() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const navItems = [
+    { name: "Features", link: "/features" },
+    { name: "Pricing", link: "/pricing" },
+    { name: "Resources", link: "/resources" },
+    { name: "Blog", link: "/blog" },
+  ];
+
+  return (
+    <Navbar className="fixed inset-x-0 top-0 z-40 w-full">
+      <NavBody>
+        <div className="flex items-center gap-2">
+          <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600" />
+          <span className="font-bold text-xl">SaaSProduct</span>
+        </div>
+        
+        <NavItems items={navItems} />
+        
+        <div className="flex gap-2">
+          <NavbarButton variant="secondary">Login</NavbarButton>
+          <NavbarButton variant="dark">Start Free Trial</NavbarButton>
+        </div>
+      </NavBody>
+
+      {/* Mobile Nav */}
+    </Navbar>
+  );
+}
+```
+
+### Marketing Landing Page
+
+```tsx
+"use client";
+import { useState } from 'react'
+import { ArrowRight } from 'lucide-react'
+import {
+  Navbar,
+  NavBody,
+  NavItems,
+  NavbarButton,
+  // ... mobile components
+} from '@/components/ui/resizable-navbar'
+
+export default function MarketingNav() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const navItems = [
+    { name: "Product", link: "#product" },
+    { name: "Solutions", link: "#solutions" },
+    { name: "Customers", link: "#customers" },
+    { name: "Pricing", link: "#pricing" },
+  ];
+
+  return (
+    <Navbar>
+      <NavBody>
+        <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          BrandName
+        </div>
+        
+        <NavItems items={navItems} />
+        
+        <NavbarButton variant="gradient">
+          <span className="flex items-center gap-2">
+            Get Started <ArrowRight className="h-4 w-4" />
+          </span>
+        </NavbarButton>
+      </NavBody>
+
+      {/* Mobile Nav */}
+    </Navbar>
+  );
+}
+```
+
+## Styling
+
+### Customizing Resize Behavior
+
+The NavBody width changes from 100% to 40% on scroll. To customize:
+
+```tsx
+// In the component file, modify the animate prop:
+animate={{
+  width: visible ? "60%" : "100%",  // Changed from 40%
+  // ... other animations
+}}
+```
+
+### Customizing Minimum Width
+
+```tsx
+// In NavBody, modify the style prop:
+style={{
+  minWidth: "600px",  // Changed from 800px
+}}
+```
+
+### Changing Scroll Threshold
+
+```tsx
+// In Navbar component, modify the scroll detection:
+useMotionValueEvent(scrollY, "change", (latest) => {
+  if (latest > 200) {  // Changed from 100
+    setVisible(true);
+  } else {
+    setVisible(false);
+  }
+});
+```
+
+### Custom Button Variants
+
+```tsx
+// Add to NavbarButton variant styles:
+const variantStyles = {
+  // ... existing variants
+  custom: "bg-green-500 text-white shadow-lg hover:bg-green-600",
+};
+
+// Usage:
+<NavbarButton variant="custom">Custom</NavbarButton>
+```
+
+## Accessibility
+
+- **Keyboard Navigation**: All links and buttons are keyboard accessible
+- **Mobile Menu**: 
+  - Toggle button properly labeled
+  - Menu items accessible via keyboard
+  - Close on item selection for better UX
+- **Focus Management**: Add custom focus styles:
+
+```tsx
+<NavItems 
+  items={navItems}
+  className="focus-within:ring-2 focus-within:ring-blue-500"
+/>
+```
+
+- **Semantic HTML**: Uses proper `<a>` tags for links
+- **Screen Readers**: Ensure logo images have alt text
+
+## Performance
+
+**Optimization Tips**:
+
+1. **Lazy Load Icons**: Import icons dynamically if you have many
+2. **Memoize Nav Items**: Use `useMemo` for large nav arrays
+3. **Debounce Scroll**: For complex nav content, consider debouncing scroll events
+4. **Reduce Motion**: Respect `prefers-reduced-motion`:
+
+```tsx
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+<motion.div
+  transition={{
+    type: prefersReducedMotion ? "tween" : "spring",
+    // ...
+  }}
+>
+```
+
+## Best Practices
+
+1. **Fixed vs Sticky**: Use `fixed` for always-visible nav, `sticky` for contextual scrolling
+2. **Mobile-First**: Test mobile menu thoroughly on actual devices
+3. **Logo Size**: Keep logo reasonably sized to prevent layout jumps
+4. **Link Contrast**: Ensure sufficient contrast for accessibility
+5. **Button Placement**: Primary CTA on the right for better conversion
+6. **Menu State**: Persist menu state in URL params for better UX
+
+## Related Components
+
+- [Button](/docs/components/button) - Basic button component
+- [Navigation Menu](/docs/components/navigation-menu) - Alternative navigation patterns
+- [Sheet](/docs/components/sheet) - Side drawer for mobile navigation
+
+## Troubleshooting
+
+**Navbar not resizing:**
+- Ensure there's scrollable content below the navbar
+- Check that the `scrollY` threshold (100px) is being reached
+- Verify Motion is installed correctly
+
+**Mobile menu not showing:**
+- Check that state management (`isOpen`) is working
+- Verify breakpoints - mobile nav shows at `lg:hidden`
+- Ensure z-index is high enough (default: z-50)
+
+**Layout jumps on scroll:**
+- Set a fixed height on the Navbar container
+- Use `minWidth` to prevent width collapse
+- Consider using `position: fixed` instead of sticky
+
+**Blur effect not working:**
+- Check browser support for `backdrop-filter`
+- Add `-webkit-backdrop-filter` for Safari
+- Ensure background opacity is set (bg-white/80)
+
+## Component Code
+
+The full source code is available in the registry. You can view it in the preview above or install it using the CLI command. The component includes all sub-components and is fully typed with TypeScript.

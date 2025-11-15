@@ -16,9 +16,14 @@ export function PreviewBlock({
   category,
   preview,
 }: PreviewBlockProps) {
-  // Dynamically import the component
+  // Dynamically import the component based on registry type
+  // category can be: "ui", "blocks/headers", "components", "hooks", etc.
   const Component = useMemo(
-    () => lazy(() => import(`@/registry/blocks/${category}/${componentName}`)),
+    () => lazy(() => 
+      import(`@/registry/${category}/${componentName}`).then((module) => ({
+        default: module.default || module,
+      }))
+    ),
     [category, componentName],
   );
 
@@ -65,12 +70,16 @@ function CodeContent({
   useEffect(() => {
     async function loadCode() {
       try {
-        const response = await fetch(
-          `/registry/${category}-${componentName}.tsx`,
-        );
+        // Fetch from the registry JSON file which contains the full content
+        const response = await fetch(`/r/${componentName}.json`);
         if (response.ok) {
-          const sourceCode = await response.text();
-          setCode(sourceCode);
+          const registryData = await response.json();
+          // Extract the content from the first file in the registry
+          if (registryData.files && registryData.files[0]?.content) {
+            setCode(registryData.files[0].content);
+          } else {
+            setCode("// Source code not available");
+          }
         } else {
           setCode("// Error loading source code");
         }

@@ -1,0 +1,373 @@
+---
+title: Hover Border Gradient
+description: A hover effect that expands to the entire container with an animated gradient border
+category: Components
+subcategory: Effects
+---
+
+import { PreviewBlock } from '@/components/preview-block'
+
+## Overview
+
+Hover Border Gradient is a UI component that creates an animated rotating gradient border effect on hover. The gradient smoothly animates around the element, creating an eye-catching visual effect perfect for buttons, cards, or any interactive element you want to highlight.
+
+### Features
+
+- ✅ **Animated Gradient Border** - Smooth rotating gradient animation
+- ✅ **Customizable Duration** - Control animation speed
+- ✅ **Clockwise/Counter-clockwise** - Choose rotation direction
+- ✅ **Flexible Container** - Works as button, div, or any element
+- ✅ **Responsive** - Adapts to container size
+- ✅ **Lightweight** - Minimal performance impact
+- ✅ **Fully Customizable** - Colors, speed, and styling
+
+## Preview
+
+<PreviewBlock componentName="hover-border-gradient-demo" category="components" />
+
+## Installation
+
+### Using CLI (Recommended)
+
+```bash
+npx shadcn@latest add @asth-ui/hover-border-gradient
+```
+
+### Manual Installation
+
+Copy the component code from the preview above and save it to:
+
+```tsx title="components/ui/hover-border-gradient.tsx"
+// Component code available in preview
+```
+
+## Dependencies
+
+External dependencies:
+
+- `motion` - Smooth gradient rotation animation
+- `react` - Core React functionality
+
+## Usage
+
+### Basic Usage
+
+```tsx
+import { HoverBorderGradient } from '@/components/ui/hover-border-gradient'
+
+export default function App() {
+  return (
+    <HoverBorderGradient>
+      Hover me
+    </HoverBorderGradient>
+  )
+}
+```
+
+### As a Button
+
+```tsx
+import { HoverBorderGradient } from '@/components/ui/hover-border-gradient'
+
+export default function App() {
+  return (
+    <HoverBorderGradient
+      as="button"
+      className="bg-white text-black dark:bg-black dark:text-white"
+    >
+      <span>Click Me</span>
+    </HoverBorderGradient>
+  )
+}
+```
+
+### Custom Colors and Speed
+
+```tsx
+import { HoverBorderGradient } from '@/components/ui/hover-border-gradient'
+
+export default function App() {
+  return (
+    <HoverBorderGradient
+      containerClassName="rounded-full"
+      duration={2}
+      clockwise={false}
+      className="bg-gradient-to-r from-purple-600 to-pink-600 text-white"
+    >
+      <span>Custom Gradient</span>
+    </HoverBorderGradient>
+  )
+}
+```
+
+### With Icon
+
+```tsx
+import { HoverBorderGradient } from '@/components/ui/hover-border-gradient'
+import { ArrowRight } from 'lucide-react'
+
+export default function App() {
+  return (
+    <HoverBorderGradient>
+      <span className="flex items-center gap-2">
+        Get Started
+        <ArrowRight className="h-4 w-4" />
+      </span>
+    </HoverBorderGradient>
+  )
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `React.ReactNode` | - | The content to be displayed inside the component |
+| `containerClassName` | `string?` | `undefined` | Additional CSS class for the outer container |
+| `className` | `string?` | `undefined` | Additional CSS class for the inner content |
+| `as` | `React.ElementType?` | `"button"` | The HTML element type (button, div, a, etc.) |
+| `duration` | `number?` | `1` | Duration of the animation cycle in seconds |
+| `clockwise` | `boolean?` | `true` | Direction of the gradient rotation |
+| `...props` | `React.HTMLAttributes` | - | Any additional HTML attributes |
+
+## Styling
+
+### Container Classes
+
+The outer container accepts custom classes via `containerClassName`:
+
+```tsx
+<HoverBorderGradient
+  containerClassName="rounded-full p-1"
+>
+  Content
+</HoverBorderGradient>
+```
+
+### Inner Content Classes
+
+The inner content wrapper accepts custom classes via `className`:
+
+```tsx
+<HoverBorderGradient
+  className="bg-white dark:bg-black px-8 py-4"
+>
+  Content
+</HoverBorderGradient>
+```
+
+### Customizing Gradient Colors
+
+The gradient is defined using CSS conic-gradient. To customize colors, you can override the gradient in your CSS:
+
+```css
+/* In your global CSS or component styles */
+.hover-border-gradient {
+  background: conic-gradient(
+    from 0deg,
+    #ff0080,
+    #7928ca,
+    #ff0080
+  );
+}
+```
+
+Or use Tailwind's `bg-gradient-to-*` utilities in the `className` prop.
+
+## Animation Control
+
+### Speed
+
+Control the rotation speed with the `duration` prop:
+
+```tsx
+// Slow rotation (2 seconds)
+<HoverBorderGradient duration={2}>
+  Slow
+</HoverBorderGradient>
+
+// Fast rotation (0.5 seconds)
+<HoverBorderGradient duration={0.5}>
+  Fast
+</HoverBorderGradient>
+```
+
+### Direction
+
+Change rotation direction with the `clockwise` prop:
+
+```tsx
+// Counter-clockwise
+<HoverBorderGradient clockwise={false}>
+  Reverse
+</HoverBorderGradient>
+```
+
+## Examples
+
+### Call-to-Action Button
+
+```tsx
+import { HoverBorderGradient } from '@/components/ui/hover-border-gradient'
+
+export default function CTAButton() {
+  return (
+    <HoverBorderGradient
+      containerClassName="rounded-full"
+      className="bg-black text-white dark:bg-white dark:text-black font-semibold"
+    >
+      <span className="px-6 py-3 flex items-center gap-2">
+        Start Free Trial
+        <ArrowRight className="h-4 w-4" />
+      </span>
+    </HoverBorderGradient>
+  )
+}
+```
+
+### Card with Hover Border
+
+```tsx
+import { HoverBorderGradient } from '@/components/ui/hover-border-gradient'
+
+export default function PricingCard() {
+  return (
+    <HoverBorderGradient
+      as="div"
+      containerClassName="rounded-2xl"
+      className="bg-white dark:bg-neutral-900 p-8"
+    >
+      <div>
+        <h3 className="text-2xl font-bold">Pro Plan</h3>
+        <p className="text-gray-600 mt-2">Perfect for professionals</p>
+        <div className="mt-4">
+          <span className="text-4xl font-bold">$29</span>
+          <span className="text-gray-600">/month</span>
+        </div>
+        <button className="mt-6 w-full bg-black text-white py-3 rounded-lg">
+          Get Started
+        </button>
+      </div>
+    </HoverBorderGradient>
+  )
+}
+```
+
+### Link with Gradient Border
+
+```tsx
+import { HoverBorderGradient } from '@/components/ui/hover-border-gradient'
+import Link from 'next/link'
+
+export default function GradientLink() {
+  return (
+    <HoverBorderGradient
+      as={Link}
+      href="/pricing"
+      containerClassName="rounded-lg"
+      className="bg-transparent text-black dark:text-white"
+    >
+      <span className="px-4 py-2">
+        View Pricing
+      </span>
+    </HoverBorderGradient>
+  )
+}
+```
+
+### Multiple Variants
+
+```tsx
+import { HoverBorderGradient } from '@/components/ui/hover-border-gradient'
+
+export default function Variants() {
+  return (
+    <div className="flex gap-4">
+      {/* Primary */}
+      <HoverBorderGradient className="bg-blue-600 text-white">
+        Primary
+      </HoverBorderGradient>
+
+      {/* Secondary */}
+      <HoverBorderGradient 
+        className="bg-gray-200 text-black dark:bg-gray-800 dark:text-white"
+      >
+        Secondary
+      </HoverBorderGradient>
+
+      {/* Outline */}
+      <HoverBorderGradient 
+        className="bg-transparent border border-gray-300 text-black dark:text-white"
+      >
+        Outline
+      </HoverBorderGradient>
+    </div>
+  )
+}
+```
+
+## Accessibility
+
+- **Semantic HTML**: Use appropriate `as` prop values (button, a, div)
+- **Keyboard Navigation**: Inherits native keyboard behavior based on element type
+- **Focus States**: Add custom focus styles for better accessibility:
+
+```tsx
+<HoverBorderGradient
+  className="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+>
+  Accessible Button
+</HoverBorderGradient>
+```
+
+## Performance
+
+The gradient animation uses CSS transforms and Motion animations, which are GPU-accelerated for smooth performance. For optimal performance:
+
+1. **Limit concurrent animations**: Don't render too many animated gradients simultaneously
+2. **Use `will-change` sparingly**: Only when needed for complex layouts
+3. **Reduce motion**: Consider respecting `prefers-reduced-motion` media query
+
+```tsx
+// Example: Respect user's motion preferences
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+<HoverBorderGradient duration={prefersReducedMotion ? 0 : 1}>
+  Content
+</HoverBorderGradient>
+```
+
+## Best Practices
+
+1. **Use for CTAs**: Ideal for highlighting important call-to-action buttons
+2. **Don't overuse**: Too many animated borders can be distracting
+3. **Maintain contrast**: Ensure text remains readable against the gradient
+4. **Test on mobile**: Verify touch interactions work smoothly
+5. **Dark mode support**: Provide appropriate colors for both light and dark themes
+
+## Related Components
+
+- [Button](/docs/components/button) - Basic button component
+- [Expandable Card](/docs/components/expandable-card) - Interactive card with expand effect
+- [Animated Button](/docs/components/animated-button) - Buttons with various animations
+
+## Troubleshooting
+
+**Gradient not animating:**
+- Check that Motion is properly installed
+- Verify `duration` prop is a positive number
+- Ensure component is mounted in the DOM
+
+**Border appears clipped:**
+- Add proper padding to the container
+- Ensure parent elements have `overflow: visible`
+- Check z-index stacking context
+
+**Performance issues:**
+- Reduce the number of concurrent animations
+- Increase `duration` for slower animation
+- Consider disabling animation on mobile
+
+## Component Code
+
+The full source code is available in the registry. You can view it in the preview above or install it using the CLI command.

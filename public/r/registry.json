@@ -121,6 +121,21 @@
       ]
     },
     {
+      "name": "hover-border-gradient-demo",
+      "type": "registry:component",
+      "description": "hover border gradient demo component",
+      "files": [
+        {
+          "path": "components/hover-border-gradient-demo.tsx",
+          "type": "registry:component",
+          "target": "components/hover-border-gradient-demo.tsx"
+        }
+      ],
+      "dependencies": [
+        "lucide-react"
+      ]
+    },
+    {
       "name": "preview-block",
       "type": "registry:component",
       "description": "preview block component",
@@ -137,6 +152,21 @@
       ],
       "registryDependencies": [
         "skeleton"
+      ]
+    },
+    {
+      "name": "resizable-navbar-demo",
+      "type": "registry:component",
+      "description": "resizable navbar demo component",
+      "files": [
+        {
+          "path": "components/resizable-navbar-demo.tsx",
+          "type": "registry:component",
+          "target": "components/resizable-navbar-demo.tsx"
+        }
+      ],
+      "dependencies": [
+        "react"
       ]
     },
     {

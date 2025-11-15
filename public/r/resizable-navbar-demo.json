@@ -1,0 +1,16 @@
+{
+  "name": "resizable-navbar-demo",
+  "type": "registry:component",
+  "description": "resizable navbar demo component",
+  "files": [
+    {
+      "path": "components/resizable-navbar-demo.tsx",
+      "content": "\"use client\";\nimport { useState } from \"react\";\nimport {\n  Navbar,\n  NavBody,\n  NavItems,\n  MobileNav,\n  MobileNavHeader,\n  MobileNavMenu,\n  MobileNavToggle,\n  NavbarLogo,\n  NavbarButton,\n} from \"@/registry/ui/resizable-navbar\";\n\nexport default function ResizableNavbarDemo() {\n  const [isOpen, setIsOpen] = useState(false);\n\n  const navItems = [\n    { name: \"Home\", link: \"#\" },\n    { name: \"About\", link: \"#\" },\n    { name: \"Services\", link: \"#\" },\n    { name: \"Contact\", link: \"#\" },\n  ];\n\n  return (\n    <div className=\"relative w-full h-[600px] overflow-hidden\">\n      {/* Hero content to show scroll behavior */}\n      <div className=\"h-[200vh] bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950\">\n        <Navbar>\n          {/* Desktop Navigation */}\n          <NavBody>\n            <NavbarLogo />\n            <NavItems items={navItems} />\n            <div className=\"flex gap-2\">\n              <NavbarButton variant=\"secondary\">Login</NavbarButton>\n              <NavbarButton variant=\"primary\">Sign Up</NavbarButton>\n            </div>\n          </NavBody>\n\n          {/* Mobile Navigation */}\n          <MobileNav>\n            <MobileNavHeader>\n              <NavbarLogo />\n              <MobileNavToggle\n                isOpen={isOpen}\n                onClick={() => setIsOpen(!isOpen)}\n              />\n            </MobileNavHeader>\n            <MobileNavMenu isOpen={isOpen} onClose={() => setIsOpen(false)}>\n              <NavItems\n                items={navItems}\n                onItemClick={() => setIsOpen(false)}\n                className=\"flex-col items-start gap-4\"\n              />\n              <div className=\"flex flex-col gap-2 w-full\">\n                <NavbarButton variant=\"secondary\" className=\"w-full\">\n                  Login\n                </NavbarButton>\n                <NavbarButton variant=\"primary\" className=\"w-full\">\n                  Sign Up\n                </NavbarButton>\n              </div>\n            </MobileNavMenu>\n          </MobileNav>\n        </Navbar>\n\n        {/* Demo content */}\n        <div className=\"container mx-auto px-4 pt-40\">\n          <h1 className=\"text-4xl font-bold text-center mb-4\">\n            Scroll to see the navbar resize\n          </h1>\n          <p className=\"text-center text-gray-600 dark:text-gray-400\">\n            The navbar will shrink and apply a blur effect as you scroll down\n          </p>\n        </div>\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "components/resizable-navbar-demo.tsx"
+    }
+  ],
+  "dependencies": [
+    "react"
+  ]
+}

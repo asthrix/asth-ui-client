@@ -1,0 +1,350 @@
+---
+title: Expandable Card
+description: Interactive expandable cards that reveal additional content on click with smooth animations
+category: Components
+subcategory: Card
+---
+
+import { PreviewBlock } from '@/components/preview-block'
+
+## Overview
+
+Expandable Card is an interactive card component that expands to show detailed content when clicked. It features smooth animations, backdrop blur overlay, and click-outside detection to close the expanded state. Perfect for showcasing portfolios, music playlists, product galleries, or any content that benefits from progressive disclosure.
+
+### Features
+
+- ✅ **Click to Expand** - Cards expand smoothly to show full content
+- ✅ **Two Layout Variants** - Standard list and grid layout options
+- ✅ **Click Outside to Close** - Automatically closes when clicking outside
+- ✅ **Smooth Animations** - Motion-powered expand/collapse animations
+- ✅ **Backdrop Blur** - Modern overlay effect when expanded
+- ✅ **Fully Responsive** - Works seamlessly on all screen sizes
+- ✅ **Accessible** - Keyboard navigation and focus management
+
+## Preview
+
+### Standard Layout
+
+<PreviewBlock componentName="expandable-card-demo-standard" category="components" />
+
+### Grid Layout
+
+<PreviewBlock componentName="expandable-card-demo-grid" category="components" />
+
+## Installation
+
+### Using CLI (Recommended)
+
+Install both variants with a single command:
+
+```bash
+npx shadcn@latest add @asth-ui/expandable-card-demo-standard @asth-ui/expandable-card-demo-grid
+```
+
+Or install individually:
+
+```bash
+# Standard layout
+npx shadcn@latest add @asth-ui/expandable-card-demo-standard
+
+# Grid layout
+npx shadcn@latest add @asth-ui/expandable-card-demo-grid
+```
+
+### Manual Installation
+
+If you prefer manual installation, you'll need to add the `useOutsideClick` hook:
+
+**1. Install the hook:**
+
+```bash
+npx shadcn@latest add @asth-ui/use-outside-click
+```
+
+**Or create it manually:**
+
+```ts title="hooks/use-outside-click.ts"
+import React, { useEffect } from "react";
+
+export const useOutsideClick = (
+  ref: React.RefObject<HTMLDivElement>,
+  callback: Function
+) => {
+  useEffect(() => {
+    const listener = (event: any) => {
+      if (!ref.current || ref.current.contains(event.target)) {
+        return;
+      }
+      callback(event);
+    };
+
+    document.addEventListener("mousedown", listener);
+    document.addEventListener("touchstart", listener);
+
+    return () => {
+      document.removeEventListener("mousedown", listener);
+      document.removeEventListener("touchstart", listener);
+    };
+  }, [ref, callback]);
+};
+```
+
+**2. Copy the component code from the preview above**
+
+## Dependencies
+
+External dependencies:
+
+- `motion` - Smooth expand/collapse animations and layout transitions
+- `react` - Core React functionality
+
+Custom hooks:
+
+- `useOutsideClick` - Detects clicks outside the expanded card
+
+## Usage
+
+### Basic Usage (Standard Layout)
+
+```tsx
+import ExpandableCardDemo from '@/components/expandable-card-demo-standard'
+
+export default function App() {
+  return <ExpandableCardDemo />
+}
+```
+
+### Basic Usage (Grid Layout)
+
+```tsx
+import ExpandableCardGridDemo from '@/components/expandable-card-demo-grid'
+
+export default function App() {
+  return <ExpandableCardGridDemo />
+}
+```
+
+### Custom Content
+
+```tsx
+"use client";
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { useOutsideClick } from "@/hooks/use-outside-click";
+
+export default function CustomExpandableCards() {
+  const [active, setActive] = useState<any>(null);
+  const ref = useRef<HTMLDivElement>(null);
+  
+  useOutsideClick(ref, () => setActive(null));
+
+  const cards = [
+    {
+      title: "Your Title",
+      description: "Your description",
+      src: "/your-image.jpg",
+      ctaText: "Learn More",
+      ctaLink: "/your-link",
+      content: () => (
+        <div>
+          <p>Your detailed content here</p>
+        </div>
+      ),
+    },
+    // Add more cards...
+  ];
+
+  return (
+    <>
+      <AnimatePresence>
+        {active && (
+          <div className="fixed inset-0 z-50 grid place-items-center">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-black/20 backdrop-blur-sm"
+            />
+            <motion.div
+              ref={ref}
+              className="relative w-full max-w-[500px] p-4"
+            >
+              {/* Expanded card content */}
+              <motion.button
+                onClick={() => setActive(null)}
+                className="absolute top-2 right-2"
+              >
+                Close
+              </motion.button>
+              <div>{active.content()}</div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      <ul className="mx-auto w-full max-w-2xl gap-4">
+        {cards.map((card, index) => (
+          <motion.div
+            key={card.title}
+            onClick={() => setActive(card)}
+            className="cursor-pointer"
+          >
+            <img src={card.src} alt={card.title} />
+            <h3>{card.title}</h3>
+            <p>{card.description}</p>
+          </motion.div>
+        ))}
+      </ul>
+    </>
+  );
+}
+```
+
+## Card Data Structure
+
+Each card object should have the following structure:
+
+```typescript
+interface Card {
+  title: string;           // Card title
+  description: string;     // Brief description
+  src: string;            // Image URL
+  ctaText: string;        // Call-to-action button text
+  ctaLink: string;        // CTA link URL
+  content: () => JSX.Element; // Expanded content renderer
+}
+```
+
+## Styling
+
+The component uses Tailwind CSS with the following key classes:
+
+```css
+/* Container */
+.mx-auto.w-full.max-w-2xl.gap-4
+
+/* Card */
+.cursor-pointer.overflow-hidden.relative.card.rounded-3xl
+
+/* Backdrop */
+.bg-black/20.backdrop-blur-sm
+
+/* Expanded Modal */
+.fixed.inset-0.z-50.grid.place-items-center
+```
+
+### Customizing Colors
+
+```tsx
+// Change backdrop opacity
+className="bg-black/50 backdrop-blur-lg" // Darker backdrop
+
+// Change card background
+className="bg-white dark:bg-neutral-900"
+
+// Change CTA button
+className="bg-blue-500 hover:bg-blue-600"
+```
+
+## Animations
+
+The component uses Motion for smooth animations:
+
+### Expand Animation
+```tsx
+initial={{ opacity: 0 }}
+animate={{ opacity: 1 }}
+exit={{ opacity: 0 }}
+```
+
+### Layout Animation
+```tsx
+layoutId={`image-${card.title}-${id}`}
+```
+
+This creates smooth morphing transitions between collapsed and expanded states.
+
+## Accessibility
+
+- **Keyboard Support**: Press `Escape` to close expanded card
+- **Click Outside**: Automatically closes when clicking outside
+- **Focus Management**: Focus is maintained when expanding/collapsing
+- **ARIA Labels**: Add appropriate `aria-label` attributes to interactive elements
+
+## Best Practices
+
+1. **Image Optimization**: Use optimized images (WebP, proper sizing) for better performance
+2. **Content Loading**: Consider lazy loading content for cards that aren't visible
+3. **Mobile UX**: Test expand behavior on mobile devices for optimal touch interaction
+4. **Animation Performance**: Use `will-change` CSS property sparingly for complex animations
+5. **Accessibility**: Always provide alternative text for images and keyboard navigation
+
+## Examples
+
+### Product Gallery
+
+```tsx
+const products = [
+  {
+    title: "Wireless Headphones",
+    description: "Premium noise-cancelling",
+    src: "/products/headphones.jpg",
+    ctaText: "Buy Now",
+    ctaLink: "/shop/headphones",
+    content: () => (
+      <div>
+        <h2>Wireless Headphones</h2>
+        <p>Features: Noise cancellation, 30hr battery, Bluetooth 5.0</p>
+        <button>Add to Cart - $299</button>
+      </div>
+    ),
+  },
+  // More products...
+];
+```
+
+### Team Members
+
+```tsx
+const team = [
+  {
+    title: "John Doe",
+    description: "CEO & Founder",
+    src: "/team/john.jpg",
+    ctaText: "View Profile",
+    ctaLink: "/team/john",
+    content: () => (
+      <div>
+        <h2>John Doe</h2>
+        <p>10+ years in tech industry...</p>
+        <a href="mailto:john@example.com">Contact</a>
+      </div>
+    ),
+  },
+  // More team members...
+];
+```
+
+## Related Components
+
+- [Bento Grid](/docs/components/bento-grid) - Grid layout for showcasing features
+- [Hover Border Gradient](/docs/components/hover-border-gradient) - Animated border effects
+- [Card Hover Effect](/docs/components/card-hover-effect) - Alternative card interactions
+
+## Troubleshooting
+
+**Card doesn't close when clicking outside:**
+- Ensure the `useOutsideClick` hook is properly imported and the ref is attached to the modal container
+
+**Animations are janky:**
+- Check if you have too many cards rendering at once
+- Consider using `React.memo` for card components
+- Reduce image sizes
+
+**Layout shifts when expanding:**
+- Ensure parent container has defined dimensions
+- Use Motion's `layout` prop for smooth transitions
+
+## Component Code
+
+The full source code is available in the registry. You can view it in the preview above or install it using the CLI command.

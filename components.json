@@ -19,7 +19,8 @@
     "hooks": "@/hooks"
   },
   "registries": {
-    "@asth-ui": "http://localhost:3000/r/{name}.json",
+    "@asth-demo": "http://localhost:3000/r/{name}.json",
+    "@asth-ui": "https://asth-ui.vercel.app/r/{name}.json",
     "@aceternity": "https://ui.aceternity.com/registry/{name}.json"
   }
 }
